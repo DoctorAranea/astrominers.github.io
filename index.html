@@ -23,6 +23,7 @@
         <div id="unity-build-title">AstroMiners</div>
       </div>
     </div>
+    <script src="messageHandler.js"></script>
     <script>
 
       let socket;
@@ -45,7 +46,7 @@
         }
       }
 
-      function sendBackMessage(unityInstance, message) {
+      function sendMessageToUnity(unityInstance, message) {
 			  console.log("Sending message to Unity: " + message);
 			  unityInstance.SendMessage("Blockchain", "JavaScriptMessageReceive", message);
 		  }
@@ -148,7 +149,8 @@
 
                 socket.onmessage = function (event) {
                     let str = `'${event.data}'`;
-                    sendBackMessage(unityInstance, str);
+                    sendMessageToUnity(unityInstance, str);
+                    handleMessage(str);
                 }
               
                 socket.onclose = function (event) {
