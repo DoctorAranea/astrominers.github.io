@@ -23,10 +23,12 @@
         <div id="unity-build-title">AstroMiners</div>
       </div>
     </div>
-    <script src="messageHandler.js"></script>
+    <script src="socketMessageHandler.js"></script>
+    <script src="workerMessageHandler.js"></script>
     <script>
 
       let socket;
+      let block;
       let workers = [];
       let url = window.location.href;
       let paramsStr = url.split('?')[1];
@@ -43,6 +45,24 @@
                 username = value;
             if (name == 'id')
                 id = value;
+        }
+      }
+
+      function startWorkers() {
+        socket.send(UTF8ToString('GetNewBlock#\f'));
+
+		    for (let i = 0; i < 1; i++) {
+            let worker = new Worker("worker.js");
+            worker.addEventListener('message', (ctx) => {
+                handleWorkerMessage(worker, ctx.data);
+            });
+            workers.push(worker);
+        }
+      }
+
+      function sendMessageToWorkers (message) {
+        for (let i = 0; i < workers.length; i++) {
+          workers[i].postMessage(message);
         }
       }
 
