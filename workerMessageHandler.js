@@ -8,7 +8,7 @@ function handleWorkerMessage(workerIndex, str) {
     switch (request) {
         case 'SendHash':
             let hash = value;
-            socket.send('SendHash#' + difficulty + ':' + minerName + ':' + hash + '\f');
+            socket.send('SendHash#' + difficulty + ':' + username + ':' + hash + '\f');
         break;
         // case 'GetNewBlock':
         //     console.log('--- МЫ ПЕРЕДАЁМ ВОРКЕРУ БЛОК');

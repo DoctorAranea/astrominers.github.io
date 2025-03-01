@@ -59,6 +59,9 @@ this.addEventListener('message', (ctx) => {
             difficulty = split[0];
             block = JSON.parse(split[1]);
         break;
+        case 'StopMining':
+            isGoingOn = false;
+        break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
         break;
@@ -66,7 +69,7 @@ this.addEventListener('message', (ctx) => {
 });
 
 console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
-const intervalID = setInterval(mine, 10);
+const intervalID = setInterval(mine, 1);
 
 function mine() {
     if (!isGoingOn) {
@@ -86,8 +89,8 @@ function mine() {
     let nonce = '';
     for(let i = 0; i < 19; i++) 
         nonce += Math.floor(Math.random() * 10);
+
     generateHash(nonce);
-    clearInterval(intervalID);
 }
 
 function generateHash(nonce) {

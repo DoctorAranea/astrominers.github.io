@@ -14,8 +14,7 @@ function handleSocketMessage(str) {
         break;
         case 'GetNewBlock':
             console.log('--- МЫ ПОЛУЧАЕМ БЛОК');
-            let fBlock = value;
-            block = JSON.parse(fBlock);
+            block = JSON.parse(value);
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
             console.log(block);
 
@@ -30,6 +29,14 @@ function handleSocketMessage(str) {
                 });
                 workers.push(worker);
                 workers[i].postMessage('GetNewBlock#' + difficulty + ';' + JSON.stringify(block));
+            }
+        break;
+        case 'SendHash':
+            let data = JSON.parse(value);
+            let result = data['Item1'];
+            let code = data['Item2'];
+            if (result || code >= 204) {
+                sendMessageToWorkers('StopMining#' + true);
             }
         break;
     }
