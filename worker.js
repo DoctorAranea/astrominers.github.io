@@ -1,44 +1,53 @@
-console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
-// let result = 1;
-// const intervalID = setInterval(work, 1000);
-let isGoingOn = true;
-let block;
+let result = 1;
+const intervalID = setInterval(work, 1000);
 
-console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
-self.addEventListener('message', (str) => {
-    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
-    str = str.replace(/'/g, "");
+function work() {
+    result = result * 2;
+    console.log("result=", result);
+    if(result >= 32) clearInterval(intervalID);
+}
 
-    let request = str.split('#')[0];
-    let value = str.split('#')[1];
-
-    switch (request) {
-        case 'GetNewBlock':
-            console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
-            block = JSON.parse(value);
-            startMining();
-        break;
-        default:
-            console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
-        break;
-    }
+this.addEventListener('message', (ctx) => {
+    console.log('ВОРКЕР получил ' + ctx.data);
 });
 
-function requestBlock() {
-    console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
-    self.postMessage('GetNewBlock#\f');
-}
+self.postMessage('блины');
 
-function startMining() {
-    console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
-    while (isGoingOn) {
-        console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
-        break;
+// console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
+// let isGoingOn = true;
+// let block;
 
-        // result = result * 2;
-        // console.log("result=", result);
-        // if(result >= 32) clearInterval(intervalID);
-    }
-}
+// console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
+// self.addEventListener('message', (str) => {
+//     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
+//     str = str.replace(/'/g, "");
 
-requestBlock();
+//     let request = str.split('#')[0];
+//     let value = str.split('#')[1];
+
+//     switch (request) {
+//         case 'GetNewBlock':
+//             console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
+//             block = JSON.parse(value);
+//             startMining();
+//         break;
+//         default:
+//             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
+//         break;
+//     }
+// });
+
+// function requestBlock() {
+//     console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
+//     self.postMessage('GetNewBlock#\f');
+// }
+
+// function startMining() {
+//     console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
+//     while (isGoingOn) {
+//         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
+//         break;
+//     }
+// }
+
+// requestBlock();
