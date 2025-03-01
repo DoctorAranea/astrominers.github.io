@@ -6,6 +6,7 @@ let block;
 
 console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
+    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
     str = str.replace(/'/g, "");
 
     let request = str.split('#')[0];

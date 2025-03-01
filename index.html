@@ -54,7 +54,8 @@
 		    for (let i = 0; i < 1; i++) {
             let worker = new Worker("worker.js");
             worker.addEventListener('message', (ctx) => {
-                handleWorkerMessage(i, ctx.data);
+                let index = i;
+                handleWorkerMessage(index, ctx.data);
             });
             workers.push(worker);
         }

@@ -1,4 +1,5 @@
 function handleSocketMessage(str) {
+    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ СОКЕТА');
     str = str.replace(/'/g, '');
     
     let request = str.split('#')[0];
