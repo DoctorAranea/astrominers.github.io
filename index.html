@@ -58,6 +58,7 @@
                 handleWorkerMessage(index, ctx.data);
             });
             workers.push(worker);
+            workers[i].postMessage('Start#123');
         }
       }
 

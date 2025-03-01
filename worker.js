@@ -5,7 +5,7 @@ let isGoingOn = true;
 let block;
 
 console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
-this.addEventListener('message', (str) => {
+self.addEventListener('message', (str) => {
     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
     str = str.replace(/'/g, "");
 
@@ -16,6 +16,9 @@ this.addEventListener('message', (str) => {
         case 'GetNewBlock':
             console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
             block = JSON.parse(value);
+        break;
+        default:
+            console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
         break;
     }
 });
