@@ -5,6 +5,43 @@ let isWaiting = false;
 let isGoingOn = true;
 let block;
 
+const chars = {
+    'а': 'a',
+    'б': 'b',
+    'в': 'v',
+    'г': 'g',
+    'д': 'd',
+    'е': 'e',
+    'ё': 'yo',
+    'ж': 'zh',
+    'з': 'z',
+    'и': 'ee',
+    'й': 'y',
+    'к': 'k',
+    'л': 'l',
+    'м': 'm',
+    'н': 'n',
+    'о': 'o',
+    'п': 'p',
+    'р': 'r',
+    'с': 's',
+    'т': 't',
+    'у': 'oo',
+    'ф': 'f',
+    'х': 'kh',
+    'ц': 'c',
+    'ч': 'ch',
+    'ш': 'sh',
+    'щ': 'shya',
+    'ъ': 'uwu',
+    'ы': 'i',
+    'ь': 'nya',
+    'э': 'e',
+    'ю': 'yoo',
+    'я': 'ya',
+    '№': '#'
+}
+
 console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
@@ -64,7 +101,22 @@ function generateHash(nonce) {
 }
 
 function getBlockData(nonce) {
-    return `'${block.Id}${block.Data}${block.CreatedOn}${block.User}${block.PreviousHash}${block.Reward}${nonce}'`;
+    let str = `'${block.Id}${block.Data}${block.CreatedOn}${block.User}${block.PreviousHash}${block.Reward}${nonce}'`;
+    str = str.toLowerCase();
+
+    let fStr = '';
+
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        let newChar = chars[char];
+        if (newChar != null) {
+            fStr += newChar;
+        } else {
+            fStr += char;
+        }
+    }
+
+    return fStr;
 }
 
 // const getSHA256Hash = async (input) => {
