@@ -5,7 +5,7 @@ let isGoingOn = true;
 let block;
 
 console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
-self.addEventListener('message', (ctx) => {
+self.addEventListener('message', (str) => {
     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
     str = str.replace(/'/g, "");
 
