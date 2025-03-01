@@ -44,15 +44,38 @@ function mine() {
         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }
-    
-    generateHash();
+
+    let nonce = '';
+    for(let i = 0; i < 19; i++) 
+        nonce += Math.floor(Math.random() * 10);
+    generateHash(nonce);
+    clearInterval(intervalID);
 }
 
-function generateHash() {
+function generateHash(nonce) {
     console.log('> Пытаюсь сгенерировать хэш на блок: ', block);
+    console.log('> nonce: ', nonce);
 
-    // Логика генерации хэша
+    let data = getBlockData(nonce);
+    console.log('> data: ', data);
+    
+    let hash = getSHA256Hash(data);
+    console.log('> hash: ', hash);
 }
+
+function getBlockData(nonce) {
+    return `'${block.Id}${block.Data}${block.CreatedOn}${block.User}${block.PreviousHash}${block.Reward}${nonce}'`;
+}
+
+const getSHA256Hash = async (input) => {
+    const textAsBuffer = new TextEncoder().encode(input);
+    const hashBuffer = await window.crypto.subtle.digest("SHA-256", textAsBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray
+      .map((item) => item.toString(16).padStart(2, "0"))
+      .join("");
+    return hash;
+  };
 
 
 // self.postMessage('блины');
