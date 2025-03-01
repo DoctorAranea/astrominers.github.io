@@ -1,4 +1,4 @@
-function handleWorkerMessage(worker, str) {
+function handleWorkerMessage(workerIndex, str) {
     str = str.replace(/'/g, "");
 
     let request = str.split('#')[0];
@@ -7,7 +7,7 @@ function handleWorkerMessage(worker, str) {
     switch (request) {
         case 'GetNewBlock':
             console.log('--- МЫ ПЕРЕДАЁМ ВОРКЕРУ БЛОК');
-            worker.postMessage('GetNewBlock#' + JSON.stringify(block));
+            workers[workerIndex].postMessage('GetNewBlock#' + JSON.stringify(block));
         break;
     }
 }
