@@ -55,7 +55,7 @@ this.addEventListener('message', (ctx) => {
         case 'GetNewBlock':
             console.log('--- ВОРКЕР ПОЛУЧАЕТ ИНФОРМАЦИЮ');
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
-            let split = fBlock.split(':');
+            let split = fBlock.split(';');
             difficulty = split[0];
             block = JSON.parse(split[1]);
         break;

@@ -29,7 +29,7 @@ function handleSocketMessage(str) {
                     handleWorkerMessage(index, ctx.data);
                 });
                 workers.push(worker);
-                workers[i].postMessage('GetNewBlock#' + difficulty + ':' + JSON.stringify(block));
+                workers[i].postMessage('GetNewBlock#' + difficulty + ';' + JSON.stringify(block));
             }
         break;
     }
