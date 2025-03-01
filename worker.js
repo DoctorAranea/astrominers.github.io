@@ -18,7 +18,6 @@ this.addEventListener('message', (ctx) => {
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
             console.log('--- ВОРКЕР ПАРСИТ БЛОК: ' + fBlock);
             block = JSON.parse(fBlock);
-            startMining();
         break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
@@ -26,13 +25,26 @@ this.addEventListener('message', (ctx) => {
     }
 });
 
+function mine() {
+    console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
+    
+    while (block == null && isGoingOn) { }
+
+    if (isGoingOn) {
+        startMining();
+    }
+}
+
 function startMining() {
     console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
+
     while (isGoingOn) {
-        console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
+        console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         break;
     }
 }
+
+mine();
 
 // self.postMessage('блины');
 
@@ -41,7 +53,7 @@ function startMining() {
 // let block;
 
 // console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
-// self.addEventListener('message', (str) => {
+// this.addEventListener('message', (str) => {
 //     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
 //     str = str.replace(/'/g, "");
 
