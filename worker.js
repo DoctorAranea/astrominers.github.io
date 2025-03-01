@@ -16,6 +16,7 @@ this.addEventListener('message', (ctx) => {
         case 'GetNewBlock':
             console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
+            console.log('--- ВОРКЕР ПАРСИТ БЛОК: ' + fBlock);
             block = JSON.parse(fBlock);
             startMining();
         break;
