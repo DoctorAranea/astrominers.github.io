@@ -94,6 +94,7 @@ function generateHash(nonce) {
     console.log('> nonce: ', nonce);
 
     let data = getBlockData(nonce);
+    data = data.substring(1).slice(0, -1);
     console.log('> data: ', data);
     
     let hash = sha256(data);
