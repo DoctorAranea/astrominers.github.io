@@ -1,8 +1,10 @@
+console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 // let result = 1;
 // const intervalID = setInterval(work, 1000);
 let isGoingOn = true;
 let block;
 
+console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
     str = str.replace(/'/g, "");
 
@@ -18,10 +20,12 @@ this.addEventListener('message', (ctx) => {
 });
 
 function mine() {
+    console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
     self.postMessage('GetNewBlock#\f');
-
+    
     while (block == null) { }
-
+    
+    console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
     while (isGoingOn) {
         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
         break;
