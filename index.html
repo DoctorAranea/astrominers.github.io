@@ -49,7 +49,7 @@
       }
 
       function startWorkers() {
-        socket.send(UTF8ToString('GetNewBlock#\f'));
+        socket.send('GetNewBlock#\f');
 
 		    for (let i = 0; i < 1; i++) {
             let worker = new Worker("worker.js");
