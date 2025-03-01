@@ -170,7 +170,7 @@
                 socket.onmessage = function (event) {
                     let str = `'${event.data}'`;
                     sendMessageToUnity(unityInstance, str);
-                    handleMessage(str);
+                    handleSocketMessage(str);
                 }
               
                 socket.onclose = function (event) {

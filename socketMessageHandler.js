@@ -1,4 +1,4 @@
-function handleMessage(str) {
+function handleSocketMessage(str) {
     str = str.replace(/'/g, "");
     
     let request = str.split('#')[0];
@@ -7,6 +7,7 @@ function handleMessage(str) {
     switch (request) {
         case 'GetNewBlock':
             console.log('--- МЫ ПОЛУЧАЕМ БЛОК');
+            console.log('ЗНАЧЕНИЕ' + value);
             block = JSON.parse(value);
         break;
     }
