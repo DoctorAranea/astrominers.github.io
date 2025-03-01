@@ -12,6 +12,19 @@ function handleSocketMessage(str) {
             block = JSON.parse(fBlock);
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
             console.log(block);
+
+            if (workers != null) {
+                workers = [];
+            }
+		    for (let i = 0; i < 1; i++) {
+                let worker = new Worker("worker.js");
+                worker.addEventListener('message', (ctx) => {
+                    let index = i;
+                    handleWorkerMessage(index, ctx.data);
+                });
+                workers.push(worker);
+                workers[i].postMessage('GetNewBlock#' + JSON.stringify(block));
+            }
         break;
     }
 }

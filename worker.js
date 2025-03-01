@@ -11,7 +11,7 @@ this.addEventListener('message', (ctx) => {
     console.log('ВОРКЕР получил ' + ctx.data);
 });
 
-self.postMessage('блины');
+// self.postMessage('блины');
 
 // console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 // let isGoingOn = true;

@@ -49,27 +49,16 @@
       }
 
       function startWorkers() {
-        for (let i = 0; i < 1; i++) {
-            const worker = new Worker("worker.js");
+        // for (let i = 0; i < 1; i++) {
+        //     const worker = new Worker("worker.js");
             
-            worker.addEventListener('message', (ctx) => {
-                console.log('надо короче ' + ctx.data);
-                console.log('сделал запрос ' + ctx.data + ' на ' + socket)
-                worker.postMessage(ctx.data);
-            });
-        }
-        // socket.send('GetNewBlock#\f');
-
-        // workers = [];
-		    // for (let i = 0; i < 1; i++) {
-        //     let worker = new Worker("worker.js");
         //     worker.addEventListener('message', (ctx) => {
-        //         let index = i;
-        //         handleWorkerMessage(index, ctx.data);
+        //         console.log('надо короче ' + ctx.data);
+        //         console.log('сделал запрос ' + ctx.data + ' на ' + socket)
+        //         worker.postMessage(ctx.data);
         //     });
-        //     workers.push(worker);
-        //     workers[i].postMessage('Start#123');
         // }
+        socket.send('GetNewBlock#\f');
       }
 
       function sendMessageToWorkers (message) {
