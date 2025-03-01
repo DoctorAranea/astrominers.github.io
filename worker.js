@@ -1,5 +1,7 @@
 
 console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
+let isActivated = false;
+let isWaiting = false;
 let isGoingOn = true;
 let block;
 
@@ -25,26 +27,33 @@ this.addEventListener('message', (ctx) => {
     }
 });
 
+console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
+const intervalID = setInterval(mine, 10);
+
 function mine() {
-    console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
+    if (!isGoingOn) {
+        clearInterval(intervalID);
+    }
     
-    while (block == null && isGoingOn) { }
-
-    if (isGoingOn) {
-        startMining();
+    if (block == null) {
+        return;
     }
-}
 
-function startMining() {
-    console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
-
-    while (isGoingOn) {
+    if (!isActivated) {
+        console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
-        break;
+        isActivated = true;
     }
+    
+    generateHash();
 }
 
-mine();
+function generateHash() {
+    console.log('> Пытаюсь сгенерировать хэш на блок: ', block);
+
+    // Логика генерации хэша
+}
+
 
 // self.postMessage('блины');
 
