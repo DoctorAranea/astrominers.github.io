@@ -51,6 +51,7 @@
       function startWorkers() {
         socket.send('GetNewBlock#\f');
 
+        workers = [];
 		    for (let i = 0; i < 1; i++) {
             let worker = new Worker("worker.js");
             worker.addEventListener('message', (ctx) => {

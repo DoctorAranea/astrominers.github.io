@@ -16,6 +16,7 @@ self.addEventListener('message', (str) => {
         case 'GetNewBlock':
             console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
             block = JSON.parse(value);
+            startMining();
         break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
@@ -23,12 +24,12 @@ self.addEventListener('message', (str) => {
     }
 });
 
-function mine() {
+function requestBlock() {
     console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
     self.postMessage('GetNewBlock#\f');
-    
-    while (block == null) { }
-    
+}
+
+function startMining() {
     console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
     while (isGoingOn) {
         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
@@ -40,4 +41,4 @@ function mine() {
     }
 }
 
-mine();
+requestBlock();
