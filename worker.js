@@ -1,15 +1,37 @@
-let result = 1;
-const intervalID = setInterval(work, 1000);
 
-function work() {
-    result = result * 2;
-    console.log("result=", result);
-    if(result >= 32) clearInterval(intervalID);
-}
+console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
+let isGoingOn = true;
+let block;
 
+console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
-    console.log('ВОРКЕР получил ' + ctx.data);
+    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
+    let str = ctx.data;
+    str = str.replace(/'/g, "");
+
+    let request = str.split('#')[0];
+    let value = str.split('#')[1];
+
+    switch (request) {
+        case 'GetNewBlock':
+            console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
+            let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '').slice(0, -1);
+            block = JSON.parse(fBlock);
+            startMining();
+        break;
+        default:
+            console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
+        break;
+    }
 });
+
+function startMining() {
+    console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
+    while (isGoingOn) {
+        console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
+        break;
+    }
+}
 
 // self.postMessage('блины');
 
