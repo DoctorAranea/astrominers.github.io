@@ -6,9 +6,13 @@ function handleWorkerMessage(workerIndex, str) {
     let value = str.split('#')[1];
 
     switch (request) {
-        case 'GetNewBlock':
-            console.log('--- МЫ ПЕРЕДАЁМ ВОРКЕРУ БЛОК');
-            workers[workerIndex].postMessage('GetNewBlock#' + JSON.stringify(block));
+        case 'SendHash':
+            let hash = value;
+            socket.send('SendHash#' + difficulty + ':' + minerName + ':' + hash + '\f');
         break;
+        // case 'GetNewBlock':
+        //     console.log('--- МЫ ПЕРЕДАЁМ ВОРКЕРУ БЛОК');
+        //     workers[workerIndex].postMessage('GetNewBlock#' + JSON.stringify(block));
+        // break;
     }
 }

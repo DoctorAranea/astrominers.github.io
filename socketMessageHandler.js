@@ -4,18 +4,24 @@ function handleSocketMessage(str) {
     
     let request = str.split('#')[0];
     let value = str.split('#')[1];
+    value = value.replace(/ /g, "").replace(/[\r\n]/gm, '').slice(0, -1);
 
     switch (request) {
+        case 'GetShareDifficulty':
+            console.log('--- МЫ ПОЛУЧАЕМ СЛОЖНОСТЬ');
+            difficulty = value;
+            console.log('СЛОЖНОСТЬ РАВНА: ' + difficulty);
+        break;
         case 'GetNewBlock':
             console.log('--- МЫ ПОЛУЧАЕМ БЛОК');
-            let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '').slice(0, -1);
+            let fBlock = value;
             block = JSON.parse(fBlock);
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
             console.log(block);
 
-            if (workers != null) {
+            if (workers != null)
                 workers = [];
-            }
+
 		    for (let i = 0; i < 1; i++) {
                 let worker = new Worker("worker.js");
                 worker.addEventListener('message', (ctx) => {
@@ -23,7 +29,7 @@ function handleSocketMessage(str) {
                     handleWorkerMessage(index, ctx.data);
                 });
                 workers.push(worker);
-                workers[i].postMessage('GetNewBlock#' + JSON.stringify(block));
+                workers[i].postMessage('GetNewBlock#' + difficulty + ':' + JSON.stringify(block));
             }
         break;
     }

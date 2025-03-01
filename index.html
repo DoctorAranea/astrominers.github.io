@@ -27,16 +27,17 @@
     <script src="workerMessageHandler.js"></script>
     <script>
 
+      let id = 123;
+      let username = 'default';
       let socket;
       let block;
+      let difficulty;
       let workers = [];
-      let url = window.location.href;
-      let paramsStr = url.split('?')[1];
-      let params = new URLSearchParams(paramsStr);
-      let id;
-      let username;
 
       function getTelegramPatameters() {
+        let url = window.location.href;
+        let paramsStr = url.split('?')[1];
+        let params = new URLSearchParams(paramsStr);
         for (let pair of params.entries()) 
         {
             let name = pair[0];

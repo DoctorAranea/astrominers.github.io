@@ -1,8 +1,8 @@
 
 console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 let isActivated = false;
-let isWaiting = false;
 let isGoingOn = true;
+let difficulty;
 let block;
 
 const chars = {
@@ -53,10 +53,11 @@ this.addEventListener('message', (ctx) => {
 
     switch (request) {
         case 'GetNewBlock':
-            console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
+            console.log('--- ВОРКЕР ПОЛУЧАЕТ ИНФОРМАЦИЮ');
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
-            console.log('--- ВОРКЕР ПАРСИТ БЛОК: ' + fBlock);
-            block = JSON.parse(fBlock);
+            let split = fBlock.split(':');
+            difficulty = split[0];
+            block = JSON.parse(split[1]);
         break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
@@ -90,19 +91,14 @@ function mine() {
 }
 
 function generateHash(nonce) {
-    console.log('> Пытаюсь сгенерировать хэш на блок: ', block);
-    console.log('> nonce: ', nonce);
-
     let data = getBlockData(nonce);
-    data = data.substring(1).slice(0, -1);
-    console.log('> data: ', data);
-    
     let hash = sha256(data);
-    console.log('> hash: ', hash);
+    
+    self.postMessage('SendHash#' + hash + '\f');
 }
 
 function getBlockData(nonce) {
-    let str = `'${block.Id}${block.Data}${block.CreatedOn}${block.User}${block.PreviousHash}${block.Reward}${nonce}'`;
+    let str = `${block.Id}${block.Data}${block.CreatedOn}${block.User}${block.PreviousHash}${block.Reward}${nonce}`;
     str = str.toLowerCase();
 
     let fStr = '';
@@ -119,16 +115,6 @@ function getBlockData(nonce) {
 
     return fStr;
 }
-
-// const getSHA256Hash = async (input) => {
-//     const textAsBuffer = new TextEncoder().encode(input);
-//     const hashBuffer = await window.crypto.subtle.digest("SHA-256", textAsBuffer);
-//     const hashArray = Array.from(new Uint8Array(hashBuffer));
-//     const hash = hashArray
-//       .map((item) => item.toString(16).padStart(2, "0"))
-//       .join("");
-//     return hash;
-// };
 
 function sha256(value) {
     function rightRotate(value, amount) {
@@ -226,45 +212,3 @@ function sha256(value) {
     }
     return result;
 };
-
-
-// self.postMessage('блины');
-
-// console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
-// let isGoingOn = true;
-// let block;
-
-// console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
-// this.addEventListener('message', (str) => {
-//     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
-//     str = str.replace(/'/g, "");
-
-//     let request = str.split('#')[0];
-//     let value = str.split('#')[1];
-
-//     switch (request) {
-//         case 'GetNewBlock':
-//             console.log('--- ВОРКЕР ПОЛУЧАЕТ БЛОК');
-//             block = JSON.parse(value);
-//             startMining();
-//         break;
-//         default:
-//             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
-//         break;
-//     }
-// });
-
-// function requestBlock() {
-//     console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
-//     self.postMessage('GetNewBlock#\f');
-// }
-
-// function startMining() {
-//     console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
-//     while (isGoingOn) {
-//         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!' + ' ' + block);
-//         break;
-//     }
-// }
-
-// requestBlock();
