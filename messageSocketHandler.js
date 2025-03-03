@@ -31,7 +31,7 @@ function handleSocketMessage(str) {
             if (result || code >= 204) {
                 for (let i = 0; i < workers.length; i++) {
                     console.log('ОСТАНАВЛИВАЮ ВОРКЕРА ' + i);
-                    sendMessageToWorkers('StopMining#' + true);
+                    workers[i].postMessage('StopMining#' + true);
                 }
             }
         break;
