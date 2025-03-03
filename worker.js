@@ -99,7 +99,7 @@ function generateHash(nonce) {
     let data = getBlockData(nonce);
     let hash = sha256(data);
     
-    let hashDecem = BigInt(hash);
+    let hashDecem = BigInt('0x' + hash);
     if (hashDecem % BigInt(difficulty.toString()) == BigInt('0')) {
         self.postMessage('SendHash#' + hash + '\f');
     }
