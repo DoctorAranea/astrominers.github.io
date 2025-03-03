@@ -9,26 +9,26 @@ function handleSocketMessage(str) {
     switch (request) {
         case 'GetShareDifficulty':
             console.log('--- МЫ ПОЛУЧАЕМ СЛОЖНОСТЬ');
-            difficulty = value;
-            console.log('СЛОЖНОСТЬ РАВНА: ' + difficulty);
+            minerInfo.difficulty = value;
+            console.log('СЛОЖНОСТЬ РАВНА: ' + minerInfo.difficulty);
         break;
         case 'GetNewBlock':
             console.log('--- МЫ ПОЛУЧАЕМ БЛОК');
-            block = JSON.parse(value);
+            minerInfo.block = JSON.parse(value);
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
-            console.log(block);
+            console.log(minerInfo.block);
 
             if (workers != null)
                 workers = [];
 
 		    for (let i = 0; i < 1; i++) {
-                let worker = new Worker("worker.js");
+                let worker = new Worker("Worker.js");
                 worker.addEventListener('message', (ctx) => {
                     let index = i;
                     handleWorkerMessage(index, ctx.data);
                 });
                 workers.push(worker);
-                workers[i].postMessage('GetNewBlock#' + difficulty + ';' + JSON.stringify(block));
+                workers[i].postMessage('GetNewBlock#' + minerInfo.difficulty + ';' + JSON.stringify(block));
             }
         break;
         case 'SendHash':
