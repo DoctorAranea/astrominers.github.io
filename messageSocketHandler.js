@@ -30,7 +30,7 @@ function handleSocketMessage(str) {
             let code = data['Item2'];
             if (result || code >= 204) {
                 for (let i = 0; i < workers.length; i++) {
-                    console.log('ОСТАНАВЛИВАЮ ВОРКЕРА ' + i);
+                    // console.log('ОСТАНАВЛИВАЮ ВОРКЕРА ' + i);
                     workers[i].postMessage('StopMining#' + true);
                 }
             }
