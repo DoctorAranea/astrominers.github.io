@@ -29,7 +29,10 @@ function handleSocketMessage(str) {
             let result = data['Item1'];
             let code = data['Item2'];
             if (result || code >= 204) {
-                sendMessageToWorkers('StopMining#' + true);
+                for (let i = 0; i < workers.length; i++) {
+                    console.log('ОСТАНАВЛИВАЮ ВОРКЕРА ' + i);
+                    sendMessageToWorkers('StopMining#' + true);
+                }
             }
         break;
     }
