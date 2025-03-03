@@ -40,7 +40,7 @@ function handleSocketMessage(str) {
 
 function initializeWorkers() {
     workers = [];
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 100; i++) {
         let worker = new Worker("worker.js");
         worker.addEventListener('message', (ctx) => {
             let index = i;
