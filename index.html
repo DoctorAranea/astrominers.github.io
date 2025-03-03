@@ -50,7 +50,7 @@
                 return paramsDict;
             }
 
-            function initializeSocket(url) {
+            function initializeSocket(unityInstance, url) {
                 socket = new WebSocket(url);
 
                 socket.onopen = function (event) {
@@ -136,7 +136,7 @@
                 }).then((unityInstance) => {
                     let params = getTelegramPatameters();
                     minerInfo = new MinerInfo(params['id'], params['username']);
-                    initializeSocket('ws://localhost:4649/app');
+                    initializeSocket(unityInstance, 'ws://localhost:4649/app');
                 
                     document.querySelector("#unity-loading-bar").style.display = "none";
                     document.querySelector("#unity-fullscreen-button").onclick = () => {
