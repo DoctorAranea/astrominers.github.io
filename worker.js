@@ -51,6 +51,9 @@ this.addEventListener('message', (ctx) => {
     let value = str.split('#')[1];
 
     switch (request) {
+        case 'GetShareDifficulty':
+            difficulty = value;
+        break;
         case 'GetNewBlock':
             console.log('--- ВОРКЕР ПОЛУЧАЕТ ИНФОРМАЦИЮ');
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
@@ -96,7 +99,10 @@ function generateHash(nonce) {
     let data = getBlockData(nonce);
     let hash = sha256(data);
     
-    self.postMessage('SendHash#' + hash + '\f');
+    let hashDecem = BigInt(hash);
+    if (hashDecem % BigInt(difficulty.toString()) == BigInt('0')) {
+        self.postMessage('SendHash#' + hash + '\f');
+    }
 }
 
 function getBlockData(nonce) {
