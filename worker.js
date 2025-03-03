@@ -1,4 +1,3 @@
-
 console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 let isActivated = false;
 let isGoingOn = true;

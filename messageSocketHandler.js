@@ -33,7 +33,7 @@ function handleSocketMessage(str) {
 function initializeWorkers() {
     workers = [];
     for (let i = 0; i < 1; i++) {
-        let worker = new Worker("Worker.js");
+        let worker = new Worker("worker.js");
         worker.addEventListener('message', (ctx) => {
             let index = i;
             handleWorkerMessage(index, ctx.data);
