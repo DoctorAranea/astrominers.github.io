@@ -15,7 +15,6 @@ function handleSocketMessage(str) {
                 console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
                 workers[i].postMessage('GetShareDifficulty#' + minerInfo.difficulty);
             }
-
         break;
         case 'GetNewBlock':
             console.log('--- МЫ ПОЛУЧАЕМ БЛОК');
@@ -39,6 +38,7 @@ function handleSocketMessage(str) {
 }
 
 function initializeWorkers() {
+    minerInfo.sendMessageToUnity('StartMining#' + true);
     workers = [];
     for (let i = 0; i < 100; i++) {
         let worker = new Worker("worker.js");

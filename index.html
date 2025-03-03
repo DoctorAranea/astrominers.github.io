@@ -23,17 +23,24 @@
                 <div id="unity-build-title">AstroMiners</div>
             </div>
         </div>
+        <script src="messageUnityHandler.js"></script>
         <script src="messageSocketHandler.js"></script>
         <script src="messageWorkerHandler.js"></script>
         <script>
 
             class MinerInfo {
-                constructor (id, username) {
+                constructor (id, username, unityInstance) {
                     this.id = id;
                     this.username = username;
+                    this.unityInstance = unityInstance;
                     this.difficulty;
                     this.block;
                 }
+
+                sendMessageToUnity(message) {
+	                console.log("Sending message to Unity: " + message);
+	                this.unityInstance.SendMessage("Blockchain", "JavaScriptMessageReceive", message);
+	            }
             }
 
             var canvas = document.querySelector("#unity-canvas");
@@ -59,7 +66,7 @@
                 return paramsDict;
             }
 
-            function initializeSocket(unityInstance, url) {
+            function initializeSocket(url) {
                 socket = new WebSocket(url);
 
                 socket.onopen = function (event) {
@@ -69,7 +76,7 @@
                 
                 socket.onmessage = function (event) {
                     let str = `'${event.data}'`;
-                    sendMessageToUnity(unityInstance, str);
+                    minerInfo.sendMessageToUnity(str);
                     handleSocketMessage(str);
                 }
                 
@@ -82,11 +89,7 @@
                 socket.send('GetNewBlock#\f');
             }
 
-            function sendMessageToUnity(unityInstance, message) {
-	            console.log("Sending message to Unity: " + message);
-	            unityInstance.SendMessage("Blockchain", "JavaScriptMessageReceive", message);
-	        }
-
+            
             function unityShowBanner(msg, type) {
                 var warningBanner = document.querySelector("#unity-warning");
                 function updateBannerVisibility() {
@@ -144,8 +147,8 @@
                     document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
                 }).then((unityInstance) => {
                     let params = getTelegramPatameters();
-                    minerInfo = new MinerInfo(params['id'], params['username']);
-                    initializeSocket(unityInstance, 'ws://localhost:4649/app');
+                    minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
+                    initializeSocket('ws://localhost:4649/app');
                 
                     document.querySelector("#unity-loading-bar").style.display = "none";
                     document.querySelector("#unity-fullscreen-button").onclick = () => {
