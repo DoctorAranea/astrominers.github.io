@@ -31,9 +31,7 @@ function handleSocketMessage(str) {
 }
 
 function initializeWorkers() {
-    if (workers != null)
-        workers = [];
-
+    workers = [];
     for (let i = 0; i < 1; i++) {
         let worker = new Worker("Worker.js");
         worker.addEventListener('message', (ctx) => {
