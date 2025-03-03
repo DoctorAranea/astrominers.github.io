@@ -17,19 +17,7 @@ function handleSocketMessage(str) {
             minerInfo.block = JSON.parse(value);
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
             console.log(minerInfo.block);
-
-            if (workers != null)
-                workers = [];
-
-		    for (let i = 0; i < 1; i++) {
-                let worker = new Worker("Worker.js");
-                worker.addEventListener('message', (ctx) => {
-                    let index = i;
-                    handleWorkerMessage(index, ctx.data);
-                });
-                workers.push(worker);
-                workers[i].postMessage('GetNewBlock#' + minerInfo.difficulty + ';' + JSON.stringify(block));
-            }
+            initializeWorkers();
         break;
         case 'SendHash':
             let data = JSON.parse(value);
@@ -39,5 +27,20 @@ function handleSocketMessage(str) {
                 sendMessageToWorkers('StopMining#' + true);
             }
         break;
+    }
+}
+
+function initializeWorkers() {
+    if (workers != null)
+        workers = [];
+
+    for (let i = 0; i < 1; i++) {
+        let worker = new Worker("Worker.js");
+        worker.addEventListener('message', (ctx) => {
+            let index = i;
+            handleWorkerMessage(index, ctx.data);
+        });
+        workers.push(worker);
+        workers[i].postMessage('GetNewBlock#' + minerInfo.difficulty + ';' + JSON.stringify(minerInfo.block));
     }
 }
