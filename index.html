@@ -3,7 +3,7 @@
     <head>
           <meta charset="utf-8">
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-          <title>Unity Web Player | AstroMiners</title>
+          <title>AstroMiners</title>
           <link rel="shortcut icon" href="TemplateData/favicon.ico">
           <link rel="stylesheet" href="TemplateData/style.css">
     </head>
@@ -88,7 +88,6 @@
             function startWorkers() {
                 socket.send('GetNewBlock#\f');
             }
-
             
             function unityShowBanner(msg, type) {
                 var warningBanner = document.querySelector("#unity-warning");
@@ -119,8 +118,8 @@
                 frameworkUrl: buildUrl + "/NewBuild.framework.js",
                 codeUrl: buildUrl + "/NewBuild.wasm",
                 streamingAssetsUrl: "StreamingAssets",
-                companyName: "DefaultCompany",
-                productName: "TestJSProj",
+                companyName: "Piligrim",
+                productName: "AstroMiners",
                 productVersion: "1.0",
                 showBanner: unityShowBanner,
             };
