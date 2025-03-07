@@ -59,12 +59,13 @@ this.addEventListener('message', (ctx) => {
             difficulty = value;
         break;
         case 'GetNewBlock':
+            let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
+            let split = fBlock.split(';');
+            
             if (id == -1)
                 id = split[2];
             if (id == -1 || id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ: ');
-            let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
-            let split = fBlock.split(';');
             difficulty = split[0];
             block = JSON.parse(split[1]);
             isGoingOn = true;
