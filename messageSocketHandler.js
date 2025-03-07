@@ -39,14 +39,21 @@ function handleSocketMessage(str) {
 
 function initializeWorkers() {
     minerInfo.sendMessageToUnity('StartMining#' + true);
-    workers = [];
-    for (let i = 0; i < 100; i++) {
-        let worker = new Worker("worker.js");
-        worker.addEventListener('message', (ctx) => {
-            let index = i;
-            handleWorkerMessage(index, ctx.data);
-        });
-        workers.push(worker);
-        workers[i].postMessage('GetNewBlock#' + minerInfo.difficulty + ';' + JSON.stringify(minerInfo.block));
+
+    if (workers == null || workers.length == 0) {
+        workers = [];
+        for (let i = 0; i < 100; i++) {
+            let worker = new Worker("worker.js");
+            worker.addEventListener('message', (ctx) => {
+                let index = i;
+                handleWorkerMessage(index, ctx.data);
+            });
+            workers.push(worker);
+            workers[i].postMessage('GetNewBlock#' + minerInfo.difficulty + ';' + JSON.stringify(minerInfo.block));
+        }
+    } else {
+        for (let i = 0; i < workers.length; i++) {
+            workers[i].postMessage('GetNewBlock#' + minerInfo.difficulty + ';' + JSON.stringify(minerInfo.block));
+        }
     }
 }

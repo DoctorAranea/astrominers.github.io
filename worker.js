@@ -1,6 +1,6 @@
 console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 let isActivated = false;
-let isGoingOn = true;
+let isGoingOn = false;
 let difficulty;
 let block;
 
@@ -60,9 +60,11 @@ this.addEventListener('message', (ctx) => {
             let split = fBlock.split(';');
             difficulty = split[0];
             block = JSON.parse(split[1]);
+            isGoingOn = true;
         break;
         case 'StopMining':
             isGoingOn = false;
+            block = null;
         break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
@@ -75,6 +77,7 @@ const intervalID = setInterval(mine, 1);
 
 function mine() {
     if (!isGoingOn) {
+        return;
         clearInterval(intervalID);
     }
     
