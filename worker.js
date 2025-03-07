@@ -1,4 +1,5 @@
 console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
+let id = -1;
 let isActivated = false;
 let isGoingOn = false;
 let difficulty;
@@ -41,9 +42,10 @@ const chars = {
     '№': '#'
 }
 
-console.log('-------------- ВОРКЕР ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
+console.log('-------------- ВОРКЕР ' + id + ' ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
-    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML');
+    if (id == -1 || id == 0 || id == 99)
+        console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРА ' + id + ': ');
     let str = ctx.data;
     str = str.replace(/'/g, "");
 
@@ -52,27 +54,37 @@ this.addEventListener('message', (ctx) => {
 
     switch (request) {
         case 'GetShareDifficulty':
+            if (id == -1 || id == 0 || id == 99)
+                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ: ');
             difficulty = value;
         break;
         case 'GetNewBlock':
-            console.log('--- ВОРКЕР ПОЛУЧАЕТ ИНФОРМАЦИЮ');
+            if (id == -1)
+                id = split[2];
+            if (id == -1 || id == 0 || id == 99)
+                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ: ');
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
             let split = fBlock.split(';');
             difficulty = split[0];
             block = JSON.parse(split[1]);
             isGoingOn = true;
-        break;
+            break;
         case 'StopMining':
+            if (id == -1 || id == 0 || id == 99)
+                console.log('--- ВОРКЕР ' + id + ' ОСТАНАВЛИВАЕТ МАЙНИНГ: ');
             isGoingOn = false;
             block = null;
+            isActivated = false;
+            if (id == -1 || id == 0 || id == 99)
+                console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
         break;
         default:
-            console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ');
+            console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ: ' + id);
         break;
     }
 });
 
-console.log('-------------- ВОРКЕР ОЖИДАЕТ БЛОК --------------');
+console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
 const intervalID = setInterval(mine, 1);
 
 function mine() {
@@ -86,7 +98,7 @@ function mine() {
     }
 
     if (!isActivated) {
-        console.log('-------------- ВОРКЕР ЗАПУСТИЛ МАЙНИНГ --------------');
+        console.log('-------------- ВОРКЕР ' + id + ' ЗАПУСТИЛ МАЙНИНГ --------------');
         console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }
