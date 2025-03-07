@@ -89,14 +89,15 @@ console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК ----
 const intervalID = setInterval(mine, 1);
 
 function mine() {
-    if (!isGoingOn) {
+    if (!isGoingOn)
         return;
-        clearInterval(intervalID);
-    }
+        //clearInterval(intervalID);
     
-    if (block == null) {
+    if (block == null)
         return;
-    }
+
+    if (difficulty == 0)
+        return;
 
     if (!isActivated) {
         if (id == -1 || id == 0 || id == 99)
