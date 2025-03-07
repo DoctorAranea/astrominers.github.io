@@ -61,7 +61,7 @@ this.addEventListener('message', (ctx) => {
         case 'GetNewBlock':
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
             let split = fBlock.split(';');
-            
+
             if (id == -1)
                 id = split[2];
             if (id == -1 || id == 0 || id == 99)
@@ -99,8 +99,9 @@ function mine() {
     }
 
     if (!isActivated) {
-        console.log('-------------- ВОРКЕР ' + id + ' ЗАПУСТИЛ МАЙНИНГ --------------');
-        console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
+        if (id == -1 || id == 0 || id == 99)
+            console.log('-------------- ВОРКЕР ' + id + ' ЗАПУСТИЛ МАЙНИНГ --------------');
+        // console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }
 
