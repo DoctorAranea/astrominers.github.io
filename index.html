@@ -39,7 +39,7 @@
 
                 sendMessageToUnity(message) {
 	                console.log("Sending message to Unity: " + message);
-	                this.unityInstance.SendMessage("Blockchain", "JavaScriptMessageReceive", message);
+	                this.unityInstance.SendMessage("Client", "JavaScriptMessageReceive", message);
 	            }
             }
 
