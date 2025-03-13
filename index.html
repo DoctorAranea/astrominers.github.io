@@ -35,6 +35,8 @@
                     this.unityInstance = unityInstance;
                     this.difficulty;
                     this.block;
+                    this.blockX;
+                    this.blockY;
                 }
 
                 sendMessageToUnity(message) {
@@ -85,7 +87,10 @@
                 }
             }
 
-            function startWorkers() {
+            function startWorkers(x, y) {
+                minerInfo.blockX = x;
+                minerInfo.blockY = y;
+                
                 socket.send('GetNewBlock#\f');
             }
             
