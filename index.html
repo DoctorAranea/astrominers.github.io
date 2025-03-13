@@ -161,7 +161,7 @@
                 }).then((unityInstance) => {
                     let params = getTelegramPatameters();
                     minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
-                    initializeSocket('ws://localhost:4649/app');
+                    initializeSocket('ws://192.168.1.141:4649/app');
                 
                     document.querySelector("#unity-loading-bar").style.display = "none";
                     document.querySelector("#unity-fullscreen-button").onclick = () => {
