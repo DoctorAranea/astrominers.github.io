@@ -8,15 +8,6 @@ function handleSocketMessage(str) {
     value = value.replace(/ /g, "").replace(/[\r\n]/gm, '');//.slice(0, -1);
 
     switch (request) {
-        case 'GetShareDifficulty':
-            console.log('--- МЫ ПОЛУЧАЕМ СЛОЖНОСТЬ');
-            minerInfo.difficulty = value;
-            console.log('СЛОЖНОСТЬ РАВНА: ' + minerInfo.difficulty);
-            for (let i = 0; i < workers.length; i++) {
-                console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
-                workers[i].postMessage('GetShareDifficulty#' + minerInfo.difficulty);
-            }
-        break;
         case 'GetNewBlock':
             console.log('--- МЫ ПОЛУЧАЕМ БЛОК');
             minerInfo.block = JSON.parse(value);
@@ -28,9 +19,15 @@ function handleSocketMessage(str) {
             let data = JSON.parse(value);
             let result = data['Item1'];
             let code = data['Item2'];
+            if (code == 202) {
+                for (let i = 0; i < workers.length; i++) {
+                    workers[i].postMessage('RemoveDifficulty#' + true);
+                }
+                sendMessageToUnity('GetBlockDifficulty#\f');
+            }
+
             if (result || code >= 204) {
                 for (let i = 0; i < workers.length; i++) {
-                    // console.log('ОСТАНАВЛИВАЮ ВОРКЕРА ' + i);
                     workers[i].postMessage('StopMining#' + true);
                 }
             }

@@ -8,6 +8,15 @@ function handleUnityMessage(str) {
     value = value.replace(/ /g, "").replace(/[\r\n]/gm, '').slice(0, -1);
 
     switch (request) {
+        case 'GetBlockDifficulty':
+            console.log('--- МЫ ПОЛУЧАЕМ СЛОЖНОСТЬ');
+            minerInfo.difficulty = value;
+            console.log('СЛОЖНОСТЬ РАВНА: ' + minerInfo.difficulty);
+            for (let i = 0; i < workers.length; i++) {
+                console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
+                workers[i].postMessage('GetShareDifficulty#' + minerInfo.difficulty);
+            }
+        break;
         case 'StopMining':
             console.log('ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА ВОРКЕРОВ!!!');
             

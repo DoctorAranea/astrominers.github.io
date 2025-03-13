@@ -53,9 +53,14 @@ this.addEventListener('message', (ctx) => {
     let value = str.split('#')[1];
 
     switch (request) {
+        case 'RemoveDifficulty':
+            if (id == -1 || id == 0 || id == 99)
+                console.log('--- ВОРКЕР ' + id + ' ОЧИСТИЛ СЛОЖНОСТЬ ');
+            difficulty = 0;
+        break;
         case 'GetShareDifficulty':
             if (id == -1 || id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ: ');
+                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ');
             difficulty = value;
         break;
         case 'GetNewBlock':
@@ -65,14 +70,14 @@ this.addEventListener('message', (ctx) => {
             if (id == -1)
                 id = split[2];
             if (id == -1 || id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ: ');
+                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ ');
             difficulty = split[0];
             block = JSON.parse(split[1]);
             isGoingOn = true;
             break;
         case 'StopMining':
             if (id == -1 || id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ОСТАНАВЛИВАЕТ МАЙНИНГ: ');
+                console.log('--- ВОРКЕР ' + id + ' ОСТАНАВЛИВАЕТ МАЙНИНГ ');
             isGoingOn = false;
             block = null;
             isActivated = false;
