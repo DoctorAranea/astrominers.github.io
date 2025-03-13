@@ -1,6 +1,7 @@
 function handleWorkerMessage(workerIndex, str) {
     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ ВОРКЕРА');
     str = str.replace(/'/g, "");
+    str = str.replace(/\f/g, "");
 
     let request = str.split('#')[0];
     let value = str.split('#')[1];
