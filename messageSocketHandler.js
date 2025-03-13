@@ -23,7 +23,7 @@ function handleSocketMessage(str) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('RemoveDifficulty#' + true);
                 }
-                sendMessageToUnity('GetBlockDifficulty#\f');
+                minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
             }
 
             if (result || code >= 204) {

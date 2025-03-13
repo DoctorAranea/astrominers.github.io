@@ -98,7 +98,7 @@
                 // console.log('BlockY: ' + minerInfo.blockY);
 
                 socket.send('GetNewBlock#\f');
-                sendMessageToUnity('GetBlockDifficulty#\f');
+                minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
             }
             
             function unityShowBanner(msg, type) {
