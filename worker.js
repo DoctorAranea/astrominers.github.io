@@ -2,6 +2,7 @@ console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 let id = -1;
 let isActivated = false;
 let isGoingOn = false;
+let energy = 0;
 let difficulty;
 let block;
 
@@ -58,6 +59,11 @@ this.addEventListener('message', (ctx) => {
                 console.log('--- ВОРКЕР ' + id + ' ОЧИСТИЛ СЛОЖНОСТЬ ');
             difficulty = 0;
         break;
+        case 'GetEnergy':
+            if (id == -1 || id == 0 || id == 99)
+                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ ЭНЕРГИЮ ' + value);
+            energy = value;
+        break;
         case 'GetShareDifficulty':
             if (id == -1 || id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ' + value);
@@ -102,6 +108,9 @@ function mine() {
         return;
 
     if (difficulty == 0)
+        return;
+
+    if (energy < 100)
         return;
 
     if (!isActivated) {

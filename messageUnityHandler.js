@@ -8,6 +8,14 @@ function handleUnityMessage(str) {
     value = value.replace(/ /g, "").replace(/[\r\n]/gm, '');//.slice(0, -1);
 
     switch (request) {
+        case 'GetEnergy':
+            console.log('--- МЫ ПОЛУЧАЕМ ЭНЕРГИЮ');
+            minerInfo.energy = value;
+            console.log('ЭНЕРГИЯ РАВНА: ' + minerInfo.energy);
+            for (let i = 0; i < workers.length; i++) {
+                workers[i].postMessage('GetEnergy#' + minerInfo.energy);
+            }
+        break;
         case 'GetBlockDifficulty':
             console.log('--- МЫ ПОЛУЧАЕМ СЛОЖНОСТЬ');
             minerInfo.difficulty = value;

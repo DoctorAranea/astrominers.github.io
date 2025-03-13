@@ -19,6 +19,7 @@ function handleSocketMessage(str) {
             let data = JSON.parse(value);
             let result = data['Item1'];
             let code = data['Item2'];
+
             if (code == 202) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('RemoveDifficulty#' + true);
@@ -31,6 +32,8 @@ function handleSocketMessage(str) {
                     workers[i].postMessage('StopMining#' + true);
                 }
             }
+
+            minerInfo.sendMessageToUnity('GetEnergy#\f');
         break;
     }
 }

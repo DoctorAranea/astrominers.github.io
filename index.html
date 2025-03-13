@@ -34,6 +34,7 @@
                     this.username = username;
                     this.unityInstance = unityInstance;
                     this.difficulty;
+                    this.energy;
                     this.block;
                     this.blockX;
                     this.blockY;
@@ -98,6 +99,7 @@
                 // console.log('BlockY: ' + minerInfo.blockY);
 
                 socket.send('GetNewBlock#\f');
+                minerInfo.sendMessageToUnity('GetEnergy#\f');
                 minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
             }
             
