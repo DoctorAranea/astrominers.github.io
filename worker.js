@@ -60,7 +60,7 @@ this.addEventListener('message', (ctx) => {
         break;
         case 'GetShareDifficulty':
             if (id == -1 || id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ');
+                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ' + value);
             difficulty = value;
         break;
         case 'GetNewBlock':

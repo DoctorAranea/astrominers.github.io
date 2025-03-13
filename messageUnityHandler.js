@@ -13,7 +13,7 @@ function handleUnityMessage(str) {
             minerInfo.difficulty = value;
             console.log('СЛОЖНОСТЬ РАВНА: ' + minerInfo.difficulty);
             for (let i = 0; i < workers.length; i++) {
-                console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
+                //console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
                 workers[i].postMessage('GetShareDifficulty#' + minerInfo.difficulty);
             }
         break;
