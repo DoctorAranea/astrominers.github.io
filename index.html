@@ -71,7 +71,7 @@
 
                 socket.onopen = function (event) {
                     alert('You are Connected to WebSocket Server');
-                    socket.send('Connection#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + '\f')
+                    socket.send('Authorization#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + '\f')
                 }
                 
                 socket.onmessage = function (event) {
