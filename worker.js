@@ -77,8 +77,7 @@ this.addEventListener('message', (ctx) => {
                 id = split[2];
             if (id == -1 || id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ ');
-            difficulty = split[0];
-            block = JSON.parse(split[1]);
+            block = JSON.parse(split[0]);
             isGoingOn = true;
             break;
         case 'StopMining':
