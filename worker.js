@@ -74,7 +74,7 @@ this.addEventListener('message', (ctx) => {
             let split = fBlock.split(';');
 
             if (id == -1)
-                id = split[2];
+                id = split[1];
             if (id == -1 || id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ ');
             block = JSON.parse(split[0]);
