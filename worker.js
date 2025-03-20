@@ -109,8 +109,8 @@ function mine() {
     if (difficulty == 0)
         return;
 
-    if (energy < 100)
-        return;
+    // if (energy < 100)
+    //     return;
 
     if (!isActivated) {
         if (id == -1 || id == 0 || id == 99)
