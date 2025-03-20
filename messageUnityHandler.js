@@ -22,7 +22,7 @@ function handleUnityMessage(str) {
             console.log('СЛОЖНОСТЬ РАВНА: ' + minerInfo.difficulty);
             for (let i = 0; i < workers.length; i++) {
                 //console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
-                workers[i].postMessage('GetShareDifficulty#' + minerInfo.difficulty);
+                workers[i].postMessage('GetBlockDifficulty#' + minerInfo.difficulty);
             }
         break;
         case 'StopMining':

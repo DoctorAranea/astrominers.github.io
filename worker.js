@@ -3,7 +3,7 @@ let id = -1;
 let isActivated = false;
 let isGoingOn = false;
 let energy = 0;
-let difficulty;
+let difficulty = 0;
 let block;
 
 const chars = {
@@ -64,7 +64,7 @@ this.addEventListener('message', (ctx) => {
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ ЭНЕРГИЮ ' + value);
             energy = value;
         break;
-        case 'GetShareDifficulty':
+        case 'GetBlockDifficulty':
             if (id == -1 || id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ' + value);
             difficulty = value;
@@ -103,11 +103,15 @@ function mine() {
         return;
         //clearInterval(intervalID);
     
-    if (block == null)
+    if (block == null) {
+        self.postMessage('GetNewBlock#' + true + '\f');
         return;
+    }
 
-    if (difficulty == 0)
+    if (difficulty == 0) {
+        self.postMessage('GetBlockDifficulty#' + true + '\f');
         return;
+    }
 
     // if (energy < 100)
     //     return;

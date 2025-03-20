@@ -11,5 +11,11 @@ function handleWorkerMessage(workerIndex, str) {
             let hash = value;
             socket.send('SendHash#' + minerInfo.difficulty + ':' + hash + ':' + minerInfo.blockX + ':' + minerInfo.blockY + '\f');
         break;
+        case 'GetBlockDifficulty':
+            workers[workerIndex].postMessage('GetBlockDifficulty#' + minerInfo.difficulty);
+            break;
+        case 'GetNewBlock':
+            workers[workerIndex].postMessage('GetNewBlock#' + JSON.stringify(minerInfo.block) + '^' + workerIndex);
+            break;
     }
 }
