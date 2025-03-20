@@ -71,7 +71,7 @@ this.addEventListener('message', (ctx) => {
         break;
         case 'GetNewBlock':
             let fBlock = value.replace(/ /g, "").replace(/[\r\n]/gm, '');
-            let split = fBlock.split(';');
+            let split = fBlock.split('^');
 
             if (id == -1)
                 id = split[1];

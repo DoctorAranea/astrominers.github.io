@@ -50,11 +50,11 @@ function initializeWorkers() {
                 handleWorkerMessage(index, ctx.data);
             });
             workers.push(worker);
-            workers[i].postMessage('GetNewBlock#' + JSON.stringify(minerInfo.block) + ';' + i);
+            workers[i].postMessage('GetNewBlock#' + JSON.stringify(minerInfo.block) + '^' + i);
         }
     } else {
         for (let i = 0; i < workers.length; i++) {
-            workers[i].postMessage('GetNewBlock#' + JSON.stringify(minerInfo.block) + ';' + i);
+            workers[i].postMessage('GetNewBlock#' + JSON.stringify(minerInfo.block) + '^' + i);
         }
     }
 }
