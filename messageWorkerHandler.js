@@ -9,7 +9,7 @@ function handleWorkerMessage(workerIndex, str) {
     switch (request) {
         case 'SendHash':
             let hash = value;
-            socket.send('SendHash#' + minerInfo.difficulty + ':' + hash + ':' + minerInfo.blockX + ':' + minerInfo.blockY + '\f');
+            socket.send('SendHash#' + minerInfo.difficulty + ':' + hash + ':' + minerInfo.blockX + ':' + minerInfo.blockY + ':' + minerInfo.isStealth + '\f');
         break;
         case 'GetBlockDifficulty':
             workers[workerIndex].postMessage('GetBlockDifficulty#' + minerInfo.difficulty);

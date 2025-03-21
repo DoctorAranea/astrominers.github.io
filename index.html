@@ -39,6 +39,7 @@
                     this.block;
                     this.blockX;
                     this.blockY;
+                    this.isStealth;
                 }
 
                 sendMessageToUnity(message) {
@@ -102,11 +103,12 @@
                 minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
             }
 
-            function startWorkers(x, y) {
+            function startWorkers(x, y, isStealth) {
                 minerInfo.block = null;
                 minerInfo.blockX = x;
                 minerInfo.blockY = y;
-                
+                minerInfo.isStealth = isStealth;
+
                 intervalGNB = setInterval(getNewBlock, 1000);
             }
             
