@@ -89,19 +89,25 @@
                 }
             }
 
-            function startWorkers(x, y) {
-                minerInfo.blockX = x;
-                minerInfo.blockY = y;
+            var intervalGNB;
 
-                // console.log('X: ' + x);
-                // console.log('Y: ' + y);
-
-                // console.log('BlockX: ' + minerInfo.blockX);
-                // console.log('BlockY: ' + minerInfo.blockY);
+            function getNewBlock() {
+                if (minerInfo.block != null) {
+                    clearInterval(intervalGNB);
+                    return;
+                }
 
                 socket.send('GetNewBlock#\f');
                 minerInfo.sendMessageToUnity('GetEnergy#\f');
                 minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
+            }
+
+            function startWorkers(x, y) {
+                minerInfo.block = null;
+                minerInfo.blockX = x;
+                minerInfo.blockY = y;
+                
+                intervalGNB = setInterval(getNewBlock, 1000);
             }
             
             function unityShowBanner(msg, type) {

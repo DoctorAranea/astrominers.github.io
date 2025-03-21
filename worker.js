@@ -96,7 +96,7 @@ this.addEventListener('message', (ctx) => {
 });
 
 console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
-const intervalID = setInterval(mine, 1);
+var intervalID = setInterval(mine, 1);
 
 function mine() {
     if (!isGoingOn)
