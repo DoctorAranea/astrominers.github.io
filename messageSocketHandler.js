@@ -39,7 +39,7 @@ function handleSocketMessage(str) {
 }
 
 function initializeWorkers() {
-    minerInfo.sendMessageToUnity('StartMining#' + true);
+    minerInfo.sendMessageToUnity('StartMining#' + minerInfo.isStealth);
 
     if (workers == null || workers.length == 0) {
         workers = [];
