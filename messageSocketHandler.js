@@ -1,7 +1,7 @@
 function handleSocketMessage(str) {
     console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ СОКЕТА');
     str = str.replace(/'/g, '');
-    str = str.replace(/\f/g, "");
+    str = str.replace(/OVER\f/g, "");
     
     let request = str.split('#')[0];
     let value = str.split('#')[1];
@@ -24,7 +24,7 @@ function handleSocketMessage(str) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('RemoveDifficulty#' + true);
                 }
-                minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
+                minerInfo.sendMessageToUnity('GetBlockDifficulty#' + MESSAGE_SPLITTER);
             }
 
             if (result || code >= 204) {
@@ -33,7 +33,7 @@ function handleSocketMessage(str) {
                 }
             }
 
-            minerInfo.sendMessageToUnity('GetEnergy#\f');
+            minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
         break;
     }
 }

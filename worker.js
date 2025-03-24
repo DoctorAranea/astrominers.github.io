@@ -1,3 +1,5 @@
+const MESSAGE_SPLITTER = 'OVER\f';
+
 console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 let id = -1;
 let isActivated = false;
@@ -104,12 +106,12 @@ function mine() {
         //clearInterval(intervalID);
     
     if (block == null) {
-        self.postMessage('GetNewBlock#' + true + '\f');
+        self.postMessage('GetNewBlock#' + true);
         return;
     }
 
     if (difficulty == 0) {
-        self.postMessage('GetBlockDifficulty#' + true + '\f');
+        self.postMessage('GetBlockDifficulty#' + true);
         return;
     }
 
@@ -136,7 +138,7 @@ function generateHash(nonce) {
     
     let hashDecem = BigInt('0x' + hash);
     if (hashDecem % BigInt(difficulty.toString()) == BigInt('0')) {
-        self.postMessage('SendHash#' + hash + '\f');
+        self.postMessage('SendHash#' + hash + MESSAGE_SPLITTER);
     }
 }
 

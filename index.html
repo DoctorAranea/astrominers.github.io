@@ -28,6 +28,7 @@
         <script src="messageWorkerHandler.js"></script>
         <script>
             console.log('ВЕРСИЯ 1');
+            const MESSAGE_SPLITTER = 'OVER\f';
 
             class MinerInfo {
                 constructor (id, username, unityInstance) {
@@ -76,7 +77,7 @@
 
                 socket.onopen = function (event) {
                     alert('You are Connected to WebSocket Server');
-                    socket.send('Authorization#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + '\f')
+                    socket.send('Authorization#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER)
                 }
                 
                 socket.onmessage = function (event) {
@@ -98,9 +99,9 @@
                     return;
                 }
 
-                socket.send('GetNewBlock#\f');
-                minerInfo.sendMessageToUnity('GetEnergy#\f');
-                minerInfo.sendMessageToUnity('GetBlockDifficulty#\f');
+                socket.send('GetNewBlock#' + MESSAGE_SPLITTER);
+                minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
+                minerInfo.sendMessageToUnity('GetBlockDifficulty#' + MESSAGE_SPLITTER);
             }
 
             function startWorkers(x, y, isStealth) {
