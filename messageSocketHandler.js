@@ -4,7 +4,7 @@ function handleSocketMessage(str) {
     str = str.replace(/OVER\f/g, "");
     
     let request = str.split('#')[0];
-    let value = str.split('#')[1];
+    let value = str.substring(request.length + 1);
     value = value.replace(/ /g, "").replace(/[\r\n]/gm, '');//.slice(0, -1);
 
     switch (request) {

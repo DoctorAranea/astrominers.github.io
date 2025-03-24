@@ -53,7 +53,7 @@ this.addEventListener('message', (ctx) => {
     str = str.replace(/'/g, "");
 
     let request = str.split('#')[0];
-    let value = str.split('#')[1];
+    let value = str.substring(request.length + 1);
 
     switch (request) {
         case 'RemoveDifficulty':
