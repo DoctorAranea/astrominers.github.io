@@ -138,7 +138,7 @@ function generateHash(nonce) {
     
     let hashDecem = BigInt('0x' + hash);
     if (hashDecem % BigInt(difficulty.toString()) == BigInt('0')) {
-        self.postMessage('SendHash#' + hash + MESSAGE_SPLITTER);
+        self.postMessage('SendHash#' + hash);
     }
 }
 
