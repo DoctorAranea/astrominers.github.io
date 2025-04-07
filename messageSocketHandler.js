@@ -22,9 +22,9 @@ function handleSocketMessage(str) {
 
             if (code == 202) {
                 for (let i = 0; i < workers.length; i++) {
-                    workers[i].postMessage('RemoveDifficulty#' + true);
+                    workers[i].postMessage('GetBlockDifficulty#' + data['Item3']['Item1']);
                 }
-                minerInfo.sendMessageToUnity('GetBlockDifficulty#' + MESSAGE_SPLITTER);
+                // minerInfo.sendMessageToUnity('GetBlockDifficulty#' + MESSAGE_SPLITTER);
             }
 
             if (result || code >= 204) {
