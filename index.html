@@ -75,7 +75,7 @@
                 socket = new WebSocket(url);
 
                 socket.onopen = function (event) {
-                    alert('You are Connected to WebSocket Server');
+                    console.log('You are Connected to WebSocket Server');
                     socket.send('Authorization#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER)
                 }
                 
