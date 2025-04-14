@@ -17,17 +17,17 @@ function handleSocketMessage(str) {
         break;
         case 'SendHash':
             let data = JSON.parse(value);
-            let result = data['Item1'];
-            let code = data['Item2'];
+            let result = data['result'];
+            let code = data['code'];
+            let difficulty = data['difficulty'];
 
             if (code == 202) {
                 for (let i = 0; i < workers.length; i++) {
-                    workers[i].postMessage('GetBlockDifficulty#' + data['Item3']['Item1']);
+                    workers[i].postMessage('GetBlockDifficulty#' + difficulty);
                 }
-                // minerInfo.sendMessageToUnity('GetBlockDifficulty#' + MESSAGE_SPLITTER);
             }
 
-            if (result || code >= 204) {
+            if (result || code > 204) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
