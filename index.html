@@ -93,10 +93,8 @@
             var intervalGNB;
 
             function getNewBlock() {
-                if (minerInfo.block != null) {
-                    clearInterval(intervalGNB);
+                if (minerInfo.block != null)
                     return;
-                }
 
                 socket.send('GetNewBlock#' + MESSAGE_SPLITTER);
                 minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
