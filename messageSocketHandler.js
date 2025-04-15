@@ -48,7 +48,7 @@ function initializeWorkers() {
 
     if (workers == null || workers.length == 0) {
         workers = [];
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 300; i++) {
             let worker = new Worker("worker.js");
             worker.addEventListener('message', (ctx) => {
                 let index = i;

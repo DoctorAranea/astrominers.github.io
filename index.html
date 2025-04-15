@@ -169,7 +169,6 @@
                     let params = getTelegramPatameters();
                     minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
                     initializeSocket('ws://176.214.76.247:4649/app');
-					//alert('Новая версия!');
                     document.querySelector("#unity-loading-bar").style.display = "none";
                     document.querySelector("#unity-fullscreen-button").onclick = () => {
                         unityInstance.SetFullscreen(1);
