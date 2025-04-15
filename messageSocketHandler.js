@@ -20,6 +20,8 @@ function handleSocketMessage(str) {
             let result = data['result'];
             let code = data['code'];
             let difficulty = data['difficulty'];
+            let x = data['x'];
+            let y = data['y'];
 
             if (code == 202) {
                 for (let i = 0; i < workers.length; i++) {
@@ -28,6 +30,9 @@ function handleSocketMessage(str) {
             }
 
             if (result || code > 204) {
+                if (minerInfo.blockX != x || minerInfo.blockY != y)
+                    break;
+                
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
