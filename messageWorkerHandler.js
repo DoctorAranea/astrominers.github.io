@@ -22,12 +22,21 @@ function handleWorkerMessage(workerIndex, str) {
     }
 }
 
+let maxCount = 100;
+let count = 0;
+
 function sendHash(hashMessage) {
-    hashGroup += hashMessage;
+    if (count < maxCount) {
+        hashGroup += hashMessage;
+        count++;
+    }
     
     if ((Date.now() - lastHashSent) / 1000 > 5) {
         socket.send(hashGroup);
         hashGroup = '';
+
+        console.log('ВОРКЕРЫ ОТОСЛАЛИ ' + count + ' ШАР');
         lastHashSent = Date.now();
+        count = 0;
     }
 }
