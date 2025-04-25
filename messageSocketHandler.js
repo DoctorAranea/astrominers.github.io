@@ -33,7 +33,7 @@ function handleSocketMessage(str) {
                 if (minerInfo.blockX != x || minerInfo.blockY != y)
                     break;
                 
-                minerInfo.block = null;
+                // minerInfo.block = null;
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
