@@ -27,7 +27,8 @@ function handleUnityMessage(str) {
         break;
         case 'StopMining':
             console.log('ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА ВОРКЕРОВ!!!');
-            
+            minerInfo.block = null;
+
             for (let i = 0; i < workers.length; i++) {
                 workers[i].postMessage('StopMining#' + true);
             }
