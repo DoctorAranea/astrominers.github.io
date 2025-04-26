@@ -44,8 +44,12 @@
                 }
 
                 sendMessageToUnity(message) {
-	                console.log("Sending message to Unity: " + message);
-	                this.unityInstance.SendMessage("Client", "JavaScriptMessageReceive", message);
+                    try {
+                        console.log("Sending message to Unity: " + message);
+                        this.unityInstance.SendMessage("Client", "JavaScriptMessageReceive", message);
+                    } catch (error) {
+                        
+                    }
 	            }
             }
 
@@ -77,6 +81,7 @@
                 socket.onopen = function (event) {
                     console.log('You are Connected to WebSocket Server');
                     socket.send('Authorization#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER)
+                    minerInfo.sendMessageToUnity('ConnectionOn');
                 }
                 
                 socket.onmessage = function (event) {
@@ -87,6 +92,8 @@
                 
                 socket.onclose = function (event) {
                     console.log('Disconnected from WebSocket server');
+                    minerInfo.sendMessageToUnity('ConnectionOff');
+                    initializeSocket(url);
                 }
             }
 
