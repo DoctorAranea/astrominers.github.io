@@ -11,7 +11,7 @@ function handleWorkerMessage(workerIndex, str) {
     switch (request) {
         case 'SendHash':
             let hash = value;
-            sendHash('SendHash#' + minerInfo.difficulty + ':' + hash + ':' + minerInfo.blockX + ':' + minerInfo.blockY + ':' + minerInfo.isStealth + MESSAGE_SPLITTER);
+            sendHash('SendHash#' + minerInfo.difficulty + ':' + hash + ':' + minerInfo.blockX + ':' + minerInfo.blockY + ':' + minerInfo.isStealth + ':' + minerInfo.block.Id + MESSAGE_SPLITTER);
         break;
         case 'GetBlockDifficulty':
             workers[workerIndex].postMessage('GetBlockDifficulty#' + minerInfo.difficulty);
