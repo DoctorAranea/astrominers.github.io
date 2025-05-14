@@ -38,8 +38,10 @@ function handleSocketMessage(str) {
                     workers[i].postMessage('StopMining#' + true);
                 }
 
-                if (code == 204)
+                if (code == 204) {
+                    minerInfo.block = null;
                     getNewBlock();
+                }
             }
 
             minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
