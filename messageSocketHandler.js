@@ -29,7 +29,7 @@ function handleSocketMessage(str) {
                 }
             }
 
-            if (result || code > 204) {
+            if (result || code >= 204) {
                 if (minerInfo.blockX != x || minerInfo.blockY != y)
                     break;
                 
@@ -37,6 +37,9 @@ function handleSocketMessage(str) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
+
+                if (code == 204)
+                    getNewBlock();
             }
 
             minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
