@@ -40,7 +40,6 @@ function handleSocketMessage(str) {
 
                 if (code == 204) {
                     minerInfo.block = null;
-                    getNewBlock();
                 }
             }
 
