@@ -98,22 +98,29 @@ this.addEventListener('message', (ctx) => {
 });
 
 console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
-var intervalID = setInterval(mine, 1);
+var blockIntervalID = setInterval(getBlock, 1000);
+var difficultyIntervalID = setInterval(getDifficulty, 1000);
+var mineIntervalID = setInterval(mine, 1);
+
+function getBlock() {
+    if (block == null)
+        self.postMessage('GetNewBlock#' + true);
+}
+
+function getDifficulty() {
+    if (difficulty == 0)
+        self.postMessage('GetBlockDifficulty#' + true);
+}
 
 function mine() {
     if (!isGoingOn)
         return;
-        //clearInterval(intervalID);
     
-    if (block == null) {
-        self.postMessage('GetNewBlock#' + true);
+    if (block == null)
         return;
-    }
 
-    if (difficulty == 0) {
-        self.postMessage('GetBlockDifficulty#' + true);
+    if (difficulty == 0)
         return;
-    }
 
     // if (energy < 100)
     //     return;
