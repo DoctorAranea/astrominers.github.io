@@ -10,6 +10,9 @@ function handleWorkerMessage(workerIndex, str) {
 
     switch (request) {
         case 'SendHash':
+            if (minerInfo.block == null)
+                return;
+            
             let hash = value;
             sendHash('SendHash#' + minerInfo.difficulty + ':' + hash + ':' + minerInfo.blockX + ':' + minerInfo.blockY + ':' + minerInfo.isStealth + ':' + minerInfo.block.Id + MESSAGE_SPLITTER);
         break;

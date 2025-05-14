@@ -103,23 +103,17 @@ var difficultyIntervalID = setInterval(getDifficulty, 1000);
 var mineIntervalID = setInterval(mine, 1);
 
 function getBlock() {
-    if (block == null)
+    if (isGoingOn && block == null)
         self.postMessage('GetNewBlock#' + true);
 }
 
 function getDifficulty() {
-    if (difficulty == 0)
+    if (isGoingOn && difficulty == 0)
         self.postMessage('GetBlockDifficulty#' + true);
 }
 
 function mine() {
-    if (!isGoingOn)
-        return;
-    
-    if (block == null)
-        return;
-
-    if (difficulty == 0)
+    if (!isGoingOn || block == null || difficulty == 0)
         return;
 
     // if (energy < 100)
