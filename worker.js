@@ -99,8 +99,8 @@ this.addEventListener('message', (ctx) => {
     }
 });
 
-if (id == 0)
-    console.log('-------------- ВОРКЕРЫ ОЖИДАЮТ БЛОК --------------');
+console.warn('-------------- ИНИЦИАЛИЗАЦИЯ ВОРКЕРА --------------');
+
 var blockIntervalID = setInterval(getBlock, 1000);
 var difficultyIntervalID = setInterval(getDifficulty, 1000);
 var mineIntervalID = setInterval(mine, 1);
@@ -124,7 +124,7 @@ function mine() {
 
     if (!isActivated) {
         if (id == 0)
-            console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛ МАЙНИНГ --------------');
+            console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛИ МАЙНИНГ --------------');
         // console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }
