@@ -57,17 +57,17 @@ this.addEventListener('message', (ctx) => {
 
     switch (request) {
         case 'RemoveDifficulty':
-            if (id == -1 || id == 0 || id == 99)
+            if (id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ОЧИСТИЛ СЛОЖНОСТЬ ');
             difficulty = 0;
         break;
         case 'GetEnergy':
-            if (id == -1 || id == 0 || id == 99)
+            if (id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ ЭНЕРГИЮ ' + value);
             energy = value;
         break;
         case 'GetBlockDifficulty':
-            if (id == -1 || id == 0 || id == 99)
+            if (id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ' + value);
             difficulty = value;
         break;
@@ -77,18 +77,18 @@ this.addEventListener('message', (ctx) => {
 
             if (id == -1)
                 id = split[1];
-            if (id == -1 || id == 0 || id == 99)
+            if (id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ ');
             block = JSON.parse(split[0]);
             isGoingOn = true;
             break;
         case 'StopMining':
-            if (id == -1 || id == 0 || id == 99)
+            if (id == 0 || id == 99)
                 console.log('--- ВОРКЕР ' + id + ' ОСТАНАВЛИВАЕТ МАЙНИНГ ');
             isGoingOn = false;
             block = null;
             isActivated = false;
-            if (id == -1 || id == 0 || id == 99)
+            if (id == 0 || id == 99)
                 console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
         break;
         default:
@@ -97,7 +97,8 @@ this.addEventListener('message', (ctx) => {
     }
 });
 
-console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
+if (id == 0 || id == 99)
+    console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
 var blockIntervalID = setInterval(getBlock, 1000);
 var difficultyIntervalID = setInterval(getDifficulty, 1000);
 var mineIntervalID = setInterval(mine, 1);
