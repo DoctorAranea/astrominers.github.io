@@ -28,10 +28,12 @@ function handleUnityMessage(str) {
         case 'StopMining':
             console.log('ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА ВОРКЕРОВ!!!');
             // minerInfo.block = null;
-
+            
             for (let i = 0; i < workers.length; i++) {
                 workers[i].postMessage('StopMining#' + true);
             }
+            
+            minerInfo.isActivated = false;
         break;
     }
 }

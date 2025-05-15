@@ -13,7 +13,9 @@ function handleSocketMessage(str) {
             minerInfo.block = JSON.parse(value);
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
             console.log(minerInfo.block);
-            initializeWorkers();
+
+            if (!minerInfo.isActivated)
+                initializeWorkers();
         break;
         case 'SendHash':
             let data = JSON.parse(value);
@@ -37,6 +39,8 @@ function handleSocketMessage(str) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
+
+                minerInfo.block = null;
             }
 
             minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
@@ -45,6 +49,8 @@ function handleSocketMessage(str) {
 }
 
 function initializeWorkers() {
+    minerInfo.isActivated = true;
+
     minerInfo.sendMessageToUnity('StartMining#' + minerInfo.isStealth);
 
     if (workers == null || workers.length == 0) {
