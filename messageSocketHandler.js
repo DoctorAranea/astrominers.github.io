@@ -29,17 +29,13 @@ function handleSocketMessage(str) {
                 }
             }
 
-            if (result || code >= 204) {
+            if (result || code > 204) {
                 if (minerInfo.blockX != x || minerInfo.blockY != y)
                     break;
                 
                 // minerInfo.block = null;
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
-                }
-
-                if (code == 204) {
-                    minerInfo.block = null;
                 }
             }
 
