@@ -45,10 +45,10 @@ const chars = {
     '№': '#'
 }
 
-console.log('-------------- ВОРКЕР ' + id + ' ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
+//console.log('-------------- ВОРКЕР ' + id + ' ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
-    if (id == -1 || id == 0 || id == 99)
-        console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРА ' + id + ': ');
+    if (id == -1 || id == 0)
+        console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ: ');
     let str = ctx.data;
     str = str.replace(/'/g, "");
 
@@ -57,18 +57,18 @@ this.addEventListener('message', (ctx) => {
 
     switch (request) {
         case 'RemoveDifficulty':
-            if (id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ОЧИСТИЛ СЛОЖНОСТЬ ');
+            if (id == 0)
+                console.log('--- ВОРКЕРЫ ОЧИСТИЛИ СЛОЖНОСТЬ ');
             difficulty = 0;
         break;
         case 'GetEnergy':
-            if (id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ ЭНЕРГИЮ ' + value);
+            if (id == 0)
+                console.log('--- ВОРКЕРЫ ПОЛУЧИЛИ ЭНЕРГИЮ ' + value);
             energy = value;
         break;
         case 'GetBlockDifficulty':
-            if (id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧИЛ СЛОЖНОСТЬ ' + value);
+            if (id == 0)
+                console.log('--- ВОРКЕРЫ ПОЛУЧИЛИ СЛОЖНОСТЬ ' + value);
             difficulty = value;
         break;
         case 'GetNewBlock':
@@ -77,28 +77,30 @@ this.addEventListener('message', (ctx) => {
 
             if (id == -1)
                 id = split[1];
-            if (id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ПОЛУЧАЕТ ИНФОРМАЦИЮ ');
+
+            if (id == 0)
+                console.log('--- ВОРКЕРЫ ПОЛУЧАЮТ ИНФОРМАЦИЮ ');
+
             block = JSON.parse(split[0]);
             isGoingOn = true;
             break;
         case 'StopMining':
-            if (id == 0 || id == 99)
-                console.log('--- ВОРКЕР ' + id + ' ОСТАНАВЛИВАЕТ МАЙНИНГ ');
+            if (id == 0)
+                console.log('--- ВОРКЕРЫ ОСТАНАВЛИВАЮТ МАЙНИНГ ');
             isGoingOn = false;
             block = null;
             isActivated = false;
-            if (id == 0 || id == 99)
-                console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
+            if (id == 0)
+                console.log('-------------- ВОРКЕРЫ ОЖИДАЮТ БЛОК --------------');
         break;
         default:
-            console.log('ПРИШЛА КОМАНДА ' + request + ' И Я НЕ ЗНАЮ ЧТО С НЕЙ ДЕЛАТЬ: ' + id);
+            console.log('ПРИШЛА КОМАНДА ' + request + ' И ВОРКЕРЫ НЕ ЗНАЮТ ЧТО С НЕЙ ДЕЛАТЬ: ' + id);
         break;
     }
 });
 
-if (id == 0 || id == 99)
-    console.log('-------------- ВОРКЕР ' + id + ' ОЖИДАЕТ БЛОК --------------');
+if (id == 0)
+    console.log('-------------- ВОРКЕРЫ ОЖИДАЮТ БЛОК --------------');
 var blockIntervalID = setInterval(getBlock, 1000);
 var difficultyIntervalID = setInterval(getDifficulty, 1000);
 var mineIntervalID = setInterval(mine, 1);
@@ -121,8 +123,8 @@ function mine() {
     //     return;
 
     if (!isActivated) {
-        if (id == -1 || id == 0 || id == 99)
-            console.log('-------------- ВОРКЕР ' + id + ' ЗАПУСТИЛ МАЙНИНГ --------------');
+        if (id == 0)
+            console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛ МАЙНИНГ --------------');
         // console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }
