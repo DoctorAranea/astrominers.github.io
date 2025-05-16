@@ -14,7 +14,7 @@ function handleSocketMessage(str) {
             console.log('ГОТОВЫЙ ДЛЯ ОТПРАВКИ БЛОК:');
             console.log(minerInfo.block);
 
-            if (!minerInfo.isActivated)
+            if (minerInfo.isMiningActivated && !minerInfo.isMining)
                 initializeWorkers();
         break;
         case 'SendHash':
@@ -25,6 +25,9 @@ function handleSocketMessage(str) {
             let x = data['x'];
             let y = data['y'];
 
+            if (minerInfo.blockX != x || minerInfo.blockY != y)
+                break;
+
             if (code == 202) {
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('GetBlockDifficulty#' + difficulty);
@@ -32,27 +35,23 @@ function handleSocketMessage(str) {
             }
 
             if (result || code > 204) {
-                if (minerInfo.blockX != x || minerInfo.blockY != y)
-                    break;
-                
-                // minerInfo.block = null;
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
-
-                minerInfo.block = null;
+                
+                minerInfo.changeWorkersActivity(false);
             }
 
-            minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
+            // minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
         break;
     }
 }
 
 function initializeWorkers() {
-    minerInfo.isActivated = true;
-
+    minerInfo.changeWorkersActivity(true);
+    
     minerInfo.sendMessageToUnity('StartMining#' + minerInfo.isStealth);
-
+    
     if (workers == null || workers.length == 0) {
         workers = [];
         for (let i = 0; i < 300; i++) {

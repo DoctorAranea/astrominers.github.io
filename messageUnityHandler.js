@@ -11,6 +11,7 @@ function handleUnityMessage(str) {
         case 'GetEnergy':
             console.log('--- МЫ ПОЛУЧАЕМ ЭНЕРГИЮ');
             minerInfo.energy = value;
+
             console.log('ЭНЕРГИЯ РАВНА: ' + minerInfo.energy);
             for (let i = 0; i < workers.length; i++) {
                 workers[i].postMessage('GetEnergy#' + minerInfo.energy);
@@ -20,20 +21,22 @@ function handleUnityMessage(str) {
             console.log('--- МЫ ПОЛУЧАЕМ СЛОЖНОСТЬ');
             minerInfo.difficulty = value;
             console.log('СЛОЖНОСТЬ РАВНА: ' + minerInfo.difficulty);
+
             for (let i = 0; i < workers.length; i++) {
-                //console.log('ОТПРАВЛЯЮ СЛОЖНОСТЬ ВОРКЕРУ ' + i);
                 workers[i].postMessage('GetBlockDifficulty#' + minerInfo.difficulty);
             }
         break;
         case 'StopMining':
             console.log('ПРИНУДИТЕЛЬНАЯ ОСТАНОВКА ВОРКЕРОВ!!!');
-            // minerInfo.block = null;
+            
+            minerInfo.changeMiningActivity(false);
             
             for (let i = 0; i < workers.length; i++) {
                 workers[i].postMessage('StopMining#' + true);
             }
             
-            minerInfo.isActivated = false;
+            minerInfo.changeWorkersActivity(false);
+            minerInfo.block = null;
         break;
     }
 }

@@ -27,7 +27,7 @@
         <script src="messageSocketHandler.js"></script>
         <script src="messageWorkerHandler.js"></script>
         <script>
-            console.log('ВЕРСИЯ 5');
+            console.log('ВЕРСИЯ 6');
             const MESSAGE_SPLITTER = 'OVER\f';
 
             class MinerInfo {
@@ -41,7 +41,18 @@
                     this.blockX;
                     this.blockY;
                     this.isStealth;
-                    this.isActivated;
+                    this.isMiningActivated;
+                    this.isMining;
+                }
+                
+                changeWorkersActivity(value) {
+                    this.isMining = value;
+                    console.warn('АКТИВНЫ ЛИ ВОРКЕРЫ:' + value);
+                }
+                
+                changeMiningActivity(value) {
+                    this.isMiningActivated = value;
+                    console.warn('АКТИВИРОВАН ЛИ МАЙНИНГ:' + value);
                 }
 
                 sendMessageToUnity(message) {
@@ -110,7 +121,8 @@
             }
 
             function startWorkers(x, y, isStealth) {
-                minerInfo.isActivated = true;
+                minerInfo.changeMiningActivity(true);
+                minerInfo.changeWorkersActivity(false);
 
                 minerInfo.block = null;
                 minerInfo.blockX = x;

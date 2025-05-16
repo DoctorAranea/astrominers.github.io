@@ -47,8 +47,8 @@ const chars = {
 
 //console.log('-------------- ВОРКЕР ' + id + ' ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
-    if (id == -1 || id == 0)
-        console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ: ');
+    if (id == -1 || id == 0) console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ: ');
+
     let str = ctx.data;
     str = str.replace(/'/g, "");
 
@@ -57,18 +57,15 @@ this.addEventListener('message', (ctx) => {
 
     switch (request) {
         case 'RemoveDifficulty':
-            if (id == 0)
-                console.log('--- ВОРКЕРЫ ОЧИСТИЛИ СЛОЖНОСТЬ ');
+            if (id == 0) console.log('--- ВОРКЕРЫ ОЧИСТИЛИ СЛОЖНОСТЬ ');
             difficulty = 0;
         break;
         case 'GetEnergy':
-            if (id == 0)
-                console.log('--- ВОРКЕРЫ ПОЛУЧИЛИ ЭНЕРГИЮ ' + value);
+            if (id == 0) console.log('--- ВОРКЕРЫ ПОЛУЧИЛИ ЭНЕРГИЮ ' + value);
             energy = value;
         break;
         case 'GetBlockDifficulty':
-            if (id == 0)
-                console.log('--- ВОРКЕРЫ ПОЛУЧИЛИ СЛОЖНОСТЬ ' + value);
+            if (id == 0) console.log('--- ВОРКЕРЫ ПОЛУЧИЛИ СЛОЖНОСТЬ ' + value);
             difficulty = value;
         break;
         case 'GetNewBlock':
@@ -78,20 +75,19 @@ this.addEventListener('message', (ctx) => {
             if (id == -1)
                 id = split[1];
 
-            if (id == 0)
-                console.log('--- ВОРКЕРЫ ПОЛУЧАЮТ ИНФОРМАЦИЮ ');
+            if (id == 0) console.log('--- ВОРКЕРЫ ПОЛУЧАЮТ ИНФОРМАЦИЮ ');
 
             block = JSON.parse(split[0]);
             isGoingOn = true;
             break;
         case 'StopMining':
-            if (id == 0)
-                console.log('--- ВОРКЕРЫ ОСТАНАВЛИВАЮТ МАЙНИНГ ');
+            if (id == 0) console.log('--- ВОРКЕРЫ ОСТАНАВЛИВАЮТ МАЙНИНГ ');
+
             isGoingOn = false;
             block = null;
             isActivated = false;
-            if (id == 0)
-                console.log('-------------- ВОРКЕРЫ ОЖИДАЮТ БЛОК --------------');
+
+            if (id == 0) console.log('-------------- ВОРКЕРЫ ОЖИДАЮТ БЛОК --------------');
         break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И ВОРКЕРЫ НЕ ЗНАЮТ ЧТО С НЕЙ ДЕЛАТЬ: ' + id);
@@ -123,8 +119,7 @@ function mine() {
     //     return;
 
     if (!isActivated) {
-        if (id == 0)
-            console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛИ МАЙНИНГ --------------');
+        if (id == 0) console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛИ МАЙНИНГ --------------');
         // console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }
