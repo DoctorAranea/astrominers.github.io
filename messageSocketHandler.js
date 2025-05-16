@@ -34,15 +34,17 @@ function handleSocketMessage(str) {
                 }
             }
 
-            if (result || code > 204) {
+            if (result || code >= 204) {
+                
                 for (let i = 0; i < workers.length; i++) {
                     workers[i].postMessage('StopMining#' + true);
                 }
                 
+                minerInfo.block = null;
                 minerInfo.changeWorkersActivity(false);
             }
 
-            // minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
+            minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
         break;
     }
 }
