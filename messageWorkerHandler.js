@@ -39,6 +39,8 @@ function sendHash(hashMessage) {
         hashGroup = '';
 
         console.log('ВОРКЕРЫ ОТОСЛАЛИ ' + count + ' ШАР');
+
+        socket.send('GetEnergy#' + MESSAGE_SPLITTER);
         lastHashSent = Date.now();
         count = 0;
     }
