@@ -92,8 +92,8 @@
 
                 socket.onopen = function (event) {
                     console.log('You are Connected to WebSocket Server');
-                    socket.send('Authorization#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER)
-                    minerInfo.sendMessageToUnity('ConnectionOn');
+                    minerInfo.sendMessageToUnity('ConnectionOn#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER);
+                    minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
                 }
                 
                 socket.onmessage = function (event) {
