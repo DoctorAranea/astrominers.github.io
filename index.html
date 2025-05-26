@@ -183,36 +183,30 @@
 
             document.querySelector("#unity-loading-bar").style.display = "block";
 
-            if (window.Telegram && window.Telegram.WebApp) {
-                const initData = window.Telegram.WebApp.initData;
-			    var initDataStr = initData;
-                
-			    window.alert(initDataStr);
-            }
-            else {
-                window.alert('Не получилось вывести данные тг');
-            }
+            Telegram.WebApp.onEvent('web_app_ready', function() {
+                window.alert(Telegram.WebApp.initData);
 
-            var script = document.createElement("script");
-            script.src = loaderUrl;
-            script.onload = () => {
-                createUnityInstance(canvas, config, (progress) => {
-                    document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
-                }).then((unityInstance) => {
-                    let params = getTelegramPatameters();
-                    minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
-                    ////initializeSocket('ws://176.214.76.247:4649/app');
-                    //initializeSocket('ws://192.168.1.143:4649/app');;
-                    document.querySelector("#unity-loading-bar").style.display = "none";
-                    document.querySelector("#unity-fullscreen-button").onclick = () => {
-                        unityInstance.SetFullscreen(1);
-                    };
-                
-                }).catch((message) => {
-                  alert(message);
-                });
-            };
-            document.body.appendChild(script);
+                var script = document.createElement("script");
+                script.src = loaderUrl;
+                script.onload = () => {
+                    createUnityInstance(canvas, config, (progress) => {
+                        document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+                    }).then((unityInstance) => {
+                        let params = getTelegramPatameters();
+                        minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
+                        ////initializeSocket('ws://176.214.76.247:4649/app');
+                        //initializeSocket('ws://192.168.1.143:4649/app');;
+                        document.querySelector("#unity-loading-bar").style.display = "none";
+                        document.querySelector("#unity-fullscreen-button").onclick = () => {
+                            unityInstance.SetFullscreen(1);
+                        };
+                    
+                    }).catch((message) => {
+                      alert(message);
+                    });
+                };
+                document.body.appendChild(script);
+            });
         </script>
     </body>
 </html>
