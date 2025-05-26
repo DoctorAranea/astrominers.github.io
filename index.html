@@ -182,6 +182,16 @@
 
             document.querySelector("#unity-loading-bar").style.display = "block";
 
+            if (window.Telegram && window.Telegram.WebApp) {
+                const initData = window.Telegram.WebApp.initData;
+			    var initDataStr = Pointer_stringify(initData);
+                
+			    window.alert(initDataStr);
+            }
+            else {
+                window.alert('Не получилось вывести данные тг');
+            }
+
             var script = document.createElement("script");
             script.src = loaderUrl;
             script.onload = () => {
