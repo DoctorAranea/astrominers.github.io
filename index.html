@@ -28,7 +28,7 @@
         <script src="messageSocketHandler.js"></script>
         <script src="messageWorkerHandler.js"></script>
         <script>
-            console.log('ВЕРСИЯ 7');
+            console.log('ВЕРСИЯ 8');
             const MESSAGE_SPLITTER = 'OVER\f';
 
             class MinerInfo {
@@ -183,8 +183,8 @@
 
             document.querySelector("#unity-loading-bar").style.display = "block";
 
-            Telegram.WebApp.onEvent('web_app_ready', function() {
-                window.alert(Telegram.WebApp.initData);
+            //Telegram.WebApp.onEvent('web_app_ready', function() {
+            //    window.alert(Telegram.WebApp.initData);
 
                 var script = document.createElement("script");
                 script.src = loaderUrl;
@@ -206,7 +206,7 @@
                     });
                 };
                 document.body.appendChild(script);
-            });
+            //});
         </script>
     </body>
 </html>
