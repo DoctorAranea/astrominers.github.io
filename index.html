@@ -28,7 +28,7 @@
         <script src="messageSocketHandler.js"></script>
         <script src="messageWorkerHandler.js"></script>
         <script>
-            console.log('ВЕРСИЯ 13');
+            console.log('ВЕРСИЯ 15');
             const MESSAGE_SPLITTER = 'OVER\f';
 
             class MinerInfo {
@@ -93,8 +93,12 @@
 
                 socket.onopen = function (event) {
                     console.log('You are Connected to WebSocket Server');
-                    minerInfo.sendMessageToUnity('ConnectionOn#'+ 'initData:' + initData + MESSAGE_SPLITTER);// + 'id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER);
-                    minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
+                    if (initData != '')
+                        minerInfo.sendMessageToUnity('ConnectionOn#'+ 'initData:' + initData + MESSAGE_SPLITTER);
+                    else
+                        minerInfo.sendMessageToUnity('ConnectionOn#' + 'id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER);
+                    
+                        minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
                 }
                 
                 socket.onmessage = function (event) {
@@ -183,8 +187,8 @@
 
             document.querySelector("#unity-loading-bar").style.display = "block";
 
-            Telegram.WebApp.onEvent('web_app_ready', function() {
-                //window.alert(Telegram.WebApp.initData);
+            //Telegram.WebApp.onEvent('web_app_ready', function() {
+                window.alert(Telegram.WebApp.initData);
 
                 var script = document.createElement("script");
                 script.src = loaderUrl;
@@ -212,7 +216,7 @@
                     });
                 };
                 document.body.appendChild(script);
-            });
+            //});
         </script>
     </body>
 </html>
