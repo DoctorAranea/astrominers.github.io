@@ -28,7 +28,7 @@
         <script src="messageSocketHandler.js"></script>
         <script src="messageWorkerHandler.js"></script>
         <script>
-            console.log('ВЕРСИЯ 8');
+            console.log('ВЕРСИЯ 13');
             const MESSAGE_SPLITTER = 'OVER\f';
 
             class MinerInfo {
@@ -88,12 +88,12 @@
                 return paramsDict;
             }
 
-            function initializeSocket(url) {
+            function initializeSocket(initData, url) {
                 socket = new WebSocket(url);
 
                 socket.onopen = function (event) {
                     console.log('You are Connected to WebSocket Server');
-                    minerInfo.sendMessageToUnity('ConnectionOn#id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER);
+                    minerInfo.sendMessageToUnity('ConnectionOn#'+ 'initData:' + initData + MESSAGE_SPLITTER);// + 'id:' + minerInfo.id + '?' + 'username:' + minerInfo.username + MESSAGE_SPLITTER);
                     minerInfo.sendMessageToUnity('GetEnergy#' + MESSAGE_SPLITTER);
                 }
                 
@@ -183,8 +183,8 @@
 
             document.querySelector("#unity-loading-bar").style.display = "block";
 
-            //Telegram.WebApp.onEvent('web_app_ready', function() {
-            //    window.alert(Telegram.WebApp.initData);
+            Telegram.WebApp.onEvent('web_app_ready', function() {
+                //window.alert(Telegram.WebApp.initData);
 
                 var script = document.createElement("script");
                 script.src = loaderUrl;
@@ -194,8 +194,14 @@
                     }).then((unityInstance) => {
                         let params = getTelegramPatameters();
                         minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
-                        ////initializeSocket('ws://176.214.76.247:4649/app');
-                        //initializeSocket('ws://192.168.1.143:4649/app');;
+                        
+                        var connectionString = 'wss://astrohashserver.ru:4650/app';
+                        //var connectionString = 'wss://176.214.76.247:4650/app';
+                        //var connectionString = 'ws://192.168.1.143:4649/app';
+						
+						console.log('Подключаюсь по адресу: ' + connectionString);
+						initializeSocket(Telegram.WebApp.initData, connectionString);
+						
                         document.querySelector("#unity-loading-bar").style.display = "none";
                         document.querySelector("#unity-fullscreen-button").onclick = () => {
                             unityInstance.SetFullscreen(1);
@@ -206,7 +212,7 @@
                     });
                 };
                 document.body.appendChild(script);
-            //});
+            });
         </script>
     </body>
 </html>
