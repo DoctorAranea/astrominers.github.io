@@ -188,34 +188,51 @@
             document.querySelector("#unity-loading-bar").style.display = "block";
 
             //Telegram.WebApp.onEvent('web_app_ready', function() {
-                window.alert(Telegram.WebApp.initData);
+            Telegram.WebApp.ready();
 
-                var script = document.createElement("script");
-                script.src = loaderUrl;
-                script.onload = () => {
-                    createUnityInstance(canvas, config, (progress) => {
-                        document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
-                    }).then((unityInstance) => {
-                        let params = getTelegramPatameters();
-                        minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
-                        
-                        var connectionString = 'wss://astrohashserver.ru:4650/app';
-                        //var connectionString = 'wss://176.214.76.247:4650/app';
-                        //var connectionString = 'ws://192.168.1.143:4649/app';
-						
-						console.log('Подключаюсь по адресу: ' + connectionString);
-						initializeSocket(Telegram.WebApp.initData, connectionString);
-						
-                        document.querySelector("#unity-loading-bar").style.display = "none";
-                        document.querySelector("#unity-fullscreen-button").onclick = () => {
-                            unityInstance.SetFullscreen(1);
-                        };
+            Telegram.WebApp.setHeaderColor('#000000');
+            Telegram.WebApp.setBottomBarColor('#000000');
+            Telegram.WebApp.setBackgroundColor('#000000');
+            Telegram.WebApp.requestFullscreen();
+            //Telegram.WebApp.enableClosingConfirmation();
+
+            Telegram.WebApp.disableVerticalSwipes();
+            Telegram.WebApp.isVerticalSwipesEnabled = false;
+            //Telegram.WebApp.SettingsButton.isVisible = true;
+
+            //window.alert(Telegram.WebApp.platform); 
+            //window.alert(Telegram.WebApp.initData);
+
+
+
+
+
+            var script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                createUnityInstance(canvas, config, (progress) => {
+                    document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+                }).then((unityInstance) => {
+                    let params = getTelegramPatameters();
+                    minerInfo = new MinerInfo(params['id'], params['username'], unityInstance);
                     
-                    }).catch((message) => {
-                      window.alert(message);
-                    });
-                };
-                document.body.appendChild(script);
+                    var connectionString = 'wss://astrohashserver.ru:4650/app';
+                    //var connectionString = 'wss://176.214.76.247:4650/app';
+                    //var connectionString = 'ws://192.168.1.143:4649/app';
+					
+					console.log('Подключаюсь по адресу: ' + connectionString);
+					initializeSocket(Telegram.WebApp.initData, connectionString);
+					
+                    document.querySelector("#unity-loading-bar").style.display = "none";
+                    document.querySelector("#unity-fullscreen-button").onclick = () => {
+                        unityInstance.SetFullscreen(1);
+                    };
+                
+                }).catch((message) => {
+                  window.alert(message);
+                });
+            };
+            document.body.appendChild(script);
             //});
         </script>
     </body>
