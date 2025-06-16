@@ -34,7 +34,7 @@ function sendHash(hashMessage) {
         count++;
     }
     
-    if ((Date.now() - lastHashSent) / 1000 > 5) {
+    if ((Date.now() - lastHashSent) / 1000 > .2) {
         socket.send(hashGroup);
         hashGroup = '';
 
