@@ -47,7 +47,7 @@ const chars = {
 
 //console.log('-------------- ВОРКЕР ' + id + ' ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
-    if (id == 0) console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ: ');
+    if (id == 0) console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ');
 
     let str = ctx.data;
     str = str.replace(/'/g, "");

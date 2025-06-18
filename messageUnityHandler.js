@@ -1,7 +1,8 @@
 function handleUnityMessage(str) {
-    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ UNITY');
     str = str.replace(/'/g, '');
     str = str.replace(/OVER\f/g, "");
+	
+    console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ UNITY:  ' + str);
     
     let request = str.split('#')[0];
     let value = str.substring(request.length + 1);
@@ -50,7 +51,7 @@ function handleUnityMessage(str) {
             clearInterval(intervalGNB);
             minerInfo.changeWorkersActivity(false);
             minerInfo.block = null;
-            workers = null;
+            workers = [];
         break;
     }
 }

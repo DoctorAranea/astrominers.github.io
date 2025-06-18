@@ -28,7 +28,7 @@
         <script src="messageSocketHandler.js"></script>
         <script src="messageWorkerHandler.js"></script>
         <script>
-            console.log('ВЕРСИЯ 15');
+            console.log('ВЕРСИЯ 17');
             const MESSAGE_SPLITTER = 'OVER\f';
 
             class MinerInfo {
@@ -97,8 +97,10 @@
             }
 
             function initializeSocket(initData, startApp, platform, url) {
+				//window.alert(platform);
+				
                 let threadsCount = 50;
-                if (platform == 'tdesktop' || platform == '')
+                if (platform == 'tdesktop' || platform == 'unknown')
                     threadsCount = 300;
 
                 minerInfo.changeThreadsCount(threadsCount);
