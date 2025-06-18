@@ -56,7 +56,10 @@ function initializeWorkers() {
     
     if (workers == null || workers.length == 0) {
         workers = [];
-        for (let i = 0; i < 300; i++) {
+
+        console.log('КОЛИЧЕСТВО ВОРКЕРОВ: ' + minerInfo.threadsCount);
+
+        for (let i = 0; i < minerInfo.threadsCount; i++) {
             let worker = new Worker("worker.js");
             worker.addEventListener('message', (ctx) => {
                 let index = i;

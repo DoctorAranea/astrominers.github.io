@@ -1,6 +1,6 @@
 const MESSAGE_SPLITTER = 'OVER\f';
 
-console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
+//console.log('-------------- ВОРКЕР ЗАПУЩЕН --------------');
 let id = -1;
 let isActivated = false;
 let isGoingOn = false;
@@ -47,7 +47,7 @@ const chars = {
 
 //console.log('-------------- ВОРКЕР ' + id + ' ПОДПИСАЛСЯ НА СООБЩЕНИЯ --------------');
 this.addEventListener('message', (ctx) => {
-    if (id == -1 || id == 0) console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ: ');
+    if (id == 0) console.log('СРАБОТАЛ ОБРАБОТЧИК СООБЩЕНИЙ ОТ HTML У ВОРКЕРОВ: ');
 
     let str = ctx.data;
     str = str.replace(/'/g, "");
@@ -89,6 +89,17 @@ this.addEventListener('message', (ctx) => {
 
             if (id == 0) console.log('-------------- ВОРКЕРЫ ОЖИДАЮТ БЛОК --------------');
         break;
+        case 'Stop':
+            if (id == 0) console.log('--- ВОРКЕРЫ ВЫКЛЮЧАЮТСЯ');
+
+            isGoingOn = false;
+            block = null;
+            isActivated = false;
+
+            clearInterval(mineIntervalID);
+            clearInterval(blockIntervalID);
+            clearInterval(difficultyIntervalID);
+        break;
         default:
             console.log('ПРИШЛА КОМАНДА ' + request + ' И ВОРКЕРЫ НЕ ЗНАЮТ ЧТО С НЕЙ ДЕЛАТЬ: ' + id);
         break;
@@ -113,13 +124,15 @@ function getDifficulty() {
 
 function mine() {
     if (!isGoingOn || block == null || difficulty == 0)
+    {
         return;
+    }
 
     // if (energy < 100)
     //     return;
 
     if (!isActivated) {
-        if (id == 0) console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛИ МАЙНИНГ --------------');
+        //if (id == 0) console.log('-------------- ВОРКЕРЫ ЗАПУСТИЛИ МАЙНИНГ --------------');
         // console.log('Я ПОЛУЧИЛ БЛОК, АЛЛИЛУЯ!', block);
         isActivated = true;
     }

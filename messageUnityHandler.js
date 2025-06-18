@@ -38,5 +38,19 @@ function handleUnityMessage(str) {
             minerInfo.changeWorkersActivity(false);
             minerInfo.block = null;
         break;
+        case 'StopWorkers':
+            console.log('ВЫКЛЮЧЕНИЕ ВОРКЕРОВ!!!');
+            
+            minerInfo.changeMiningActivity(false);
+            
+            for (let i = 0; i < workers.length; i++) {
+                workers[i].postMessage('Stop#' + true);
+            }
+            
+            clearInterval(intervalGNB);
+            minerInfo.changeWorkersActivity(false);
+            minerInfo.block = null;
+            workers = null;
+        break;
     }
 }
